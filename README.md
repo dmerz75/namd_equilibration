@@ -5,7 +5,7 @@ Setting up solvated NAMD systems
 
 1. Preparations
    A. Protein Data Bank
-   - Download structure.pdb          
+   - Download structure.pdb
    B. PSFGEN
    - Follow the guidelines set forth in the 000.NAMD_psfgen_package directory.
 
