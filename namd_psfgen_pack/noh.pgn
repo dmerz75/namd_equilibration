@@ -1,0 +1,13 @@
+#!/usr/bin/tclsh
+
+package require psfgen
+psfcontext new delete
+# topology top_all27_prot_lipid.rtf
+# par_all27_prot_lipid.prm
+ 
+mol new 00.pdb
+
+set noh1 [atomselect 0 noh]
+$noh1 set segname PTN
+$noh1 writepdb noh.pdb
+exit
