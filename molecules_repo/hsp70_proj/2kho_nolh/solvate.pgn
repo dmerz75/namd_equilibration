@@ -1,0 +1,12 @@
+# #!/usr/bin/tclsh
+
+proc solvation { molec } {
+    
+    mol load psf vac.psf pdb vac.pdb
+    package require solvate
+    solvate vac.psf vac.pdb -t 7 -o wbox
+}
+
+# ___solvation___
+# argv --
+solvation 0

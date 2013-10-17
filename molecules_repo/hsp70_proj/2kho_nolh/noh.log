@@ -1,0 +1,36 @@
+Info) VMD for LINUXAMD64, version 1.9.1 (February 1, 2012)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 2 CPUs detected.
+Info) Free system memory: 6487MB (86%)
+Warning) Detected a mismatch between CUDA runtime and GPU driver
+Warning) Check to make sure that GPU drivers are up to date.
+Info) No CUDA accelerator devices available.
+Info) Dynamically loaded 2 plugins in directory:
+Info) /home/dale/opt/vmd/lib/vmd/plugins/LINUXAMD64/molfile
+/home/dale/opt/vmd/lib/vmd
+vmd > 1.6
+deleted 0
+Info) Using plugin pdb for structure file 2KHO_nolh.pdb
+Info) Using plugin pdb for coordinates from file 2KHO_nolh.pdb
+Info) Determining bond structure from distance search ...
+Info) Analyzing structure ...
+Info)    Atoms: 3093
+Info)    Bonds: 3132
+Info)    Angles: 0  Dihedrals: 0  Impropers: 0  Cross-terms: 0
+Info)    Bondtypes: 0  Angletypes: 0  Dihedraltypes: 0  Impropertypes: 0
+Info)    Residues: 364
+Info)    Waters: 0
+Info)    Segments: 1
+Info)    Fragments: 1   Protein: 1   Nucleic: 0
+Info) Finished with coordinate file 2KHO_nolh.pdb.
+0
+atomselect0
+Info) Opened coordinate file noh.pdb for writing.
+Info) Finished with coordinate file noh.pdb.
+Info) VMD for LINUXAMD64, version 1.9.1 (February 1, 2012)
+Info) Exiting normally.
