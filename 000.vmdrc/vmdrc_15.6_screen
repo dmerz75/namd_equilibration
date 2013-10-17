@@ -1,0 +1,148 @@
+#cr            (C) Copyright 1995-2007 The Board of Trustees of the
+#cr                        University of Illinois
+#cr                         All Rights Reserved
+############################################################################ 
+# RCS INFORMATION: 
+#       $RCSfile: .vmdrc,v $ 
+#       $Author: johns $        $Locker:  $                $State: Exp $ 
+#       $Revision: 1.9 $      $Date: 2007/01/12 20:12:44 $ 
+############################################################################ 
+# VMD startup script 
+############################################################################ 
+
+# turn on lights 0 and 1
+light 0 on
+light 1 on
+light 2 off
+light 3 off
+
+# background color
+color Display Background black
+color Display FPS black
+color Axes Labels black
+
+# set some variables
+global VMDDIR
+set VMDDIR $env(VMDDIR)
+# load user scripts
+# source $env(VMDDIR)/scripts/user/init.tcl
+
+# menus
+menu main on
+menu main move 5 29
+# graphics
+menu graphics on
+menu graphics move 1048 29
+# display
+# display height 9
+# display distance 2
+display reposition 480 750
+display resize 555 450
+stage location off
+display projection orthographic
+display depthcue off
+axes location lowerleft
+display update
+# tkcon
+menu tkcon on
+menu tkcon move 520 100
+
+# newly loaded molecules/reps, etc
+mol default selection all 
+mol default material Opaque
+
+# USER ADD KEYS ************************
+# c v b n k m o h 
+
+user add key n {
+mol selection all
+mol representation Licorice .2 4 
+mol color ResID
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key v {
+mol selection all
+mol representation VDW 1.2000 27.000000
+mol color Name
+mol material Opaque
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key c {
+mol selection all
+mol representation CPK {1.300000 0.600000 10 8}
+mol color Name
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key b {
+mol selection all
+mol representation Lines {2}
+mol color ResID
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key k {
+mol selection {protein and resid 1 and name CA}
+mol representation VDW {1.2 27}
+mol color ResId
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key m {
+mol selection all
+mol representation NewCartoon {.28 16 4}
+mol color Structure
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key o {
+mol selection all
+mol representation Lines 1
+mol color Name
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key h {
+mol selection all
+mol representation Cartoon 2
+mol color structure
+mol addrep top
+mol delrep 0 top
+display update
+}
+
+user add key w {
+	color Display Background white
+}
+user add key W {
+        color Display Background black
+}
+
+user add key q {
+	#switches depthcue on and off
+	if {[string compare [display get depthcue] on] == 0} {
+		display depthcue off
+	} {
+		display depthcue   on
+  		display cuestart   0.500000
+ 		display cueend     10.000000
+ 		display cuedensity 0.400000
+ 		display cuemode    Exp2
+	}
+}

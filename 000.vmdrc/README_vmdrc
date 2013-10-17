@@ -1,0 +1,10 @@
+vmdrc
+by: Dale R. Merz Jr.
+
+Goal: neat, efficient, and effective organization of VMD windows on startup
+
+Directions:
+ 1. For a linux OS, copy vmdrc_15.6_screen to home directory as .vmdrc.
+    On the command line enter:
+    >>> cp vmdrc_15.6_screen ~/.vmdrc
+
