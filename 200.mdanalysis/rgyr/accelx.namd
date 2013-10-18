@@ -1,0 +1,89 @@
+#############################################################
+## JOB DESCRIPTION                                         ##
+#############################################################
+# Equilibration / Accelerated MD - High Temperature 
+# ee_wb, waterbox 9A  ~2400 atoms, T: 367, 433, 500 
+# 130 ps
+#############################################################
+## ADJUSTABLE PARAMETERS                                   ##
+#############################################################
+
+structure          ../ee_wb.psf
+coordinates        ../ee_wb_00.pdb 
+set temperature    367
+set outputname     iter-x 
+firsttimestep      0
+
+#############################################################
+## SIMULATION PARAMETERS                                   ##
+#############################################################
+# Input
+paraTypeCharmm	    on
+parameters          ../../toppar/par_all27_prot_lipid.prm 
+temperature         $temperature
+
+# Force-Field Parameters
+exclude             scaled1-4
+1-4scaling          1.0
+cutoff              16.0
+switching           on
+switchdist          12.0
+pairlistdist        22.0
+
+# Integrator Parameters
+timestep            2.0  ;# 2fs/step
+rigidBonds          all  ;# needed for 2fs steps
+nonbondedFreq       1
+fullElectFrequency  2  
+stepspercycle       10
+
+# Constant Temperature Control
+langevin            on    ;# do langevin dynamics
+langevinDamping     5     ;# damping coefficient (gamma) of 1/ps
+langevinTemp        $temperature
+langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
+
+# Periodic Boundary Conditions
+cellBasisVector1    38.0    0.0   0.0
+cellBasisVector2     0.0   38.0   0.0
+cellBasisVector3     0.0    0.0  38.0
+cellOrigin           0.34  -1.08  0.43
+
+wrapAll             on
+
+# PME (for full-system periodic electrostatics)
+PME                   yes
+PMEGridSpacing        1.0
+
+#manual grid definition
+PMEGridSizeX         60
+PMEGridSizeY         60
+PMEGridSizeZ         60
+
+# Constant Pressure Control (variable volume)
+useGroupPressure      yes ;# needed for rigidBonds
+useFlexibleCell       no
+useConstantArea       no
+
+langevinPiston        on
+langevinPistonTarget  1.01325 ;#  in bar -> 1 atm
+langevinPistonPeriod  100.0
+langevinPistonDecay   50.0
+langevinPistonTemp    $temperature
+
+# Output
+outputName          $outputname
+restartfreq         50     ;# 500steps = every 1ps
+dcdfreq             50
+xstFreq             50
+outputEnergies      50
+outputPressure      50
+
+#############################################################
+## EXECUTION SCRIPT                                        ##
+#############################################################
+
+# Minimization
+minimize            50
+
+run 300    ;# .7ps  
