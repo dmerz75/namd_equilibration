@@ -18,11 +18,15 @@ Directions:
     On the VMD TkConsole, enter:
     % source solvate.pgn
     % source ionize.pgn
-    % source load_rotate_origin_cminmax.pgn
+    % exit
+    Change the executed commands section. Identify 1st and last CA's.    
+    >>> vmd -psf ionized.psf -pdb ionized.pdb
+    % source load_rotate_origin_cminmax.tcl
 
 Results:
  You should have:
     1. start.pdb, start.psf ready for equilibration.
+       hold.ref, hold_ca.ref
        Consider the Voth_Method
     
    

@@ -7,13 +7,13 @@
 ## ADJUSTABLE PARAMETERS                                   ##
 #############################################################
 
-structure          nm.psf
-coordinates        nm.pdb 
-set temperature    300
-set outputname     emineq 
+structure          start.psf
+coordinates        start.pdb 
+set temperature    310
+set outputname     mine_out
 
 # Continuing a job from the restart files
-if {0} {
+if {1} {
 set inputname      myinput
 binCoordinates     $inputname.restart.coor
 binVelocities      $inputname.restart.vel  ;# remove the "temperature" entry if you use this!
@@ -24,20 +24,18 @@ firsttimestep      0
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
 #############################################################
-
 # Input
 paraTypeCharmm	    on
-parameters          ../../reso/toppar/par_all27_prot_lipid.prm 
+parameters          par_all27_prot_lipid.prm 
 temperature         $temperature
 
 # Force-Field Parameters
 exclude             scaled1-4
 1-4scaling          1.0
-cutoff              16.0
+cutoff              12.0
 switching           on
-switchdist          13.0
-pairlistdist        18.0
-
+switchdist          10.0
+pairlistdist        14.0
 
 # Integrator Parameters
 timestep            2.0  ;# 2fs/step
@@ -47,30 +45,32 @@ fullElectFrequency  2
 stepspercycle       10
 
 # Constant Temperature Control
-langevin            off    ;# do langevin dynamics
-langevinDamping     1     ;# damping coefficient (gamma) of 5/ps
+langevin            on     ;# do langevin dynamics         # VERIFIED?
+langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
 langevinTemp        $temperature
-langevinHydrogen    no    ;# don't couple langevin bath to hydrogens
+langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
+
 
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1    75.0    0.0  0.0
-cellBasisVector2     0.0   75.0  0.0
-cellBasisVector3     0.0    0.0 75.0
-cellOrigin          20.2   57.3  0.50
+cellBasisVector1   120.0   0.0  0.0
+cellBasisVector2     0.0  72.0  0.0
+cellBasisVector3     0.0   0.0 120.0
+cellOrigin         -10.2  -9.7 24.6
 }
-wrapWater           on
+# wrapWater           on
 wrapAll             on
+
 
 # PME (for full-system periodic electrostatics)
 if {1} {
-PME                   yes
-PMEGridSpacing        1.0
-#manual grid definition
+PME                  yes
+PMEGridSpacing       1.0
+# manual grid definition
 PMEGridSizeX         120
-PMEGridSizeY         120
+PMEGridSizeY         72
 PMEGridSizeZ         120
 }
 
@@ -80,40 +80,39 @@ useFlexibleCell       no
 useConstantArea       no
 
 langevinPiston        on
-langevinPistonTarget  1.01325 ;#  in bar -> 1 atm
-langevinPistonPeriod  100.0
-langevinPistonDecay   50.0
+langevinPistonTarget  1.01325 ;# in bar -> 1 atm
+langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
+langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
 langevinPistonTemp    $temperature
 
+# langevinPistonPeriod  100.0
+# langevinPistonDecay   50.0
+
 # Output
+binaryoutput        no
 outputName          $outputname
-restartfreq         5000    ;# 500steps = every 1ps
-dcdfreq             5000
-xstFreq             5000
-outputEnergies      5000
-outputPressure      5000
+restartfreq         500      ;# 500steps = every 1ps
+dcdfreq             500
+xstFreq             500
+outputEnergies      500
+# outputPressure      500
 
 #############################################################
-## EXECUTION SCRIPT                                        ##
+##  EXTRA PARAMETERS                                       ##
 #############################################################
 # Fixed Atoms Constraint (set PDB beta-column to 1)
-if {0} {
+if {1} {
 fixedAtoms          on
-fixedAtomsFile      ../npull.ref
+fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
 fixedAtomsCol       B
 }
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-
-minimize            1000
-
-set freq 200
-for {set i 0} {$i <= $temperature} {incr i 10} {
-langevinTemp $i
-reinitvels $i
-run $freq
-}
-
-run 493000 ;# 1 ns 
-
+velocityQuenching   on
+maximumMove         0.75
+minimize            2000          ;# Voth: 2000
+velocityQuenching   off
+minimize            16000
+# reinitvels          $temperature
+# run                 9900          ;#   * 2 fs/ts / 1000 = ps
