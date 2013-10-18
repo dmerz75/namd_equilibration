@@ -1,0 +1,119 @@
+#############################################################
+## JOB DESCRIPTION                                         ##
+#############################################################
+# Equilibration in Explicit Solvent
+# ~ 1 ns 
+#############################################################
+## ADJUSTABLE PARAMETERS                                   ##
+#############################################################
+
+structure          nm.psf
+coordinates        nm.pdb 
+set temperature    300
+set outputname     emineq 
+
+# Continuing a job from the restart files
+if {0} {
+set inputname      myinput
+binCoordinates     $inputname.restart.coor
+binVelocities      $inputname.restart.vel  ;# remove the "temperature" entry if you use this!
+extendedSystem	   $inputname.xsc
+} 
+firsttimestep      0
+
+#############################################################
+## SIMULATION PARAMETERS                                   ##
+#############################################################
+
+# Input
+paraTypeCharmm	    on
+parameters          ../../reso/toppar/par_all27_prot_lipid.prm 
+temperature         $temperature
+
+# Force-Field Parameters
+exclude             scaled1-4
+1-4scaling          1.0
+cutoff              16.0
+switching           on
+switchdist          13.0
+pairlistdist        18.0
+
+
+# Integrator Parameters
+timestep            2.0  ;# 2fs/step
+rigidBonds          all  ;# needed for 2fs steps
+nonbondedFreq       1
+fullElectFrequency  2  
+stepspercycle       10
+
+# Constant Temperature Control
+langevin            off    ;# do langevin dynamics
+langevinDamping     1     ;# damping coefficient (gamma) of 5/ps
+langevinTemp        $temperature
+langevinHydrogen    no    ;# don't couple langevin bath to hydrogens
+
+# Periodic Boundary conditions
+# NOTE: Do not set the periodic cell basis if you have also 
+# specified an .xsc restart file!
+if {1} { 
+cellBasisVector1    75.0    0.0  0.0
+cellBasisVector2     0.0   75.0  0.0
+cellBasisVector3     0.0    0.0 75.0
+cellOrigin          20.2   57.3  0.50
+}
+wrapWater           on
+wrapAll             on
+
+# PME (for full-system periodic electrostatics)
+if {1} {
+PME                   yes
+PMEGridSpacing        1.0
+#manual grid definition
+PMEGridSizeX         120
+PMEGridSizeY         120
+PMEGridSizeZ         120
+}
+
+# Constant Pressure Control (variable volume)
+useGroupPressure      yes ;# needed for rigidBonds
+useFlexibleCell       no
+useConstantArea       no
+
+langevinPiston        on
+langevinPistonTarget  1.01325 ;#  in bar -> 1 atm
+langevinPistonPeriod  100.0
+langevinPistonDecay   50.0
+langevinPistonTemp    $temperature
+
+# Output
+outputName          $outputname
+restartfreq         5000    ;# 500steps = every 1ps
+dcdfreq             5000
+xstFreq             5000
+outputEnergies      5000
+outputPressure      5000
+
+#############################################################
+## EXECUTION SCRIPT                                        ##
+#############################################################
+# Fixed Atoms Constraint (set PDB beta-column to 1)
+if {0} {
+fixedAtoms          on
+fixedAtomsFile      ../npull.ref
+fixedAtomsCol       B
+}
+#############################################################
+## EXECUTION SCRIPT                                        ##
+#############################################################
+
+minimize            1000
+
+set freq 200
+for {set i 0} {$i <= $temperature} {incr i 10} {
+langevinTemp $i
+reinitvels $i
+run $freq
+}
+
+run 493000 ;# 1 ns 
+
