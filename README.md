@@ -1,14 +1,14 @@
-namd_equilibration
-==================
+# NAMD Equilibrated Systems
+====================
 
-Setting up solvated NAMD systems
+## Setting up solvated NAMD systems
 
-1. Prepare your structure.
-   - Find it on the protein data bank.
-   - download .pdb
+### Prepare your structure.
+Find it on the protein data bank.
+Download PDB File (Text)
 
-2. PSFGEN
-   - Follow the guidelines set forth in the 000.NAMD_psfgen_package directory.
+### PSFGEN
+Follow the guidelines set forth in the 000.NAMD_psfgen_package directory.
       
-3a. Voth Method
-   - Follow the Voth methodology described in voth_method directory.
+### Voth Method
+Follow the Voth methodology described in voth_method directory.
