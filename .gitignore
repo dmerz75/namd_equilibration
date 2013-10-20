@@ -1,2 +1,4 @@
 *.dcd
 namd_practice/*
+core*
+molecules_repo/*
