@@ -12,32 +12,33 @@ Alter the coordinates and sequence as necessary.
 ### Description: 
     Using the 000.NAMD_psfgen_package directory, let's create the psf file.
 ### Objective: 
-    to correctly generate psf and pdb files for equilibration, in any
+to correctly generate psf and pdb files for equilibration, in any
 solvent (vacuum, implicit, explicit).
 ### Directions:
-    1. name the pdb file accordingly, i.e. 00.pdb (see noh.pgn)
-    2. Generate the protein structure with no hydrogens.
-       On the command line, enter:
-       >>> vmd -dispdev text -e noh.pgn > noh.log
-    3. Generate the psf (protein structure file).
-       On the command line, enter:
-       >>> vmd -dispdev text -e psf.pgn > psf.log
-    4. Start vmd.
-       >>> vmd
-       Open the TK Console window from the VMD Main -> Extensions -> TK Console.
-       On the VMD TkConsole, enter:
-       % source solvate.pgn
-       % source ionize.pgn
-       % exit
-       Change the executed commands section. Identify 1st and last CA's.    
-       >>> vmd -psf ionized.psf -pdb ionized.pdb
-       % source load_rotate_origin_cminmax.tcl
+Let us start with a generic name.
+#### 
+1. name the pdb file accordingly, i.e. 00.pdb (see noh.pgn)
+2. Generate the protein structure with no hydrogens.
+   On the command line, enter:
+   >>> vmd -dispdev text -e noh.pgn > noh.log
+3. Generate the psf (protein structure file).
+   On the command line, enter:
+   >>> vmd -dispdev text -e psf.pgn > psf.log
+4. Start vmd.
+   >>> vmd
+   Open the TK Console window from the VMD Main -> Extensions -> TK Console.
+   On the VMD TkConsole, enter:
+   % source solvate.pgn
+   % source ionize.pgn
+   % exit
+   Change the executed commands section. Identify 1st and last CA's.    
+   >>> vmd -psf ionized.psf -pdb ionized.pdb
+   % source load_rotate_origin_cminmax.tcl
 
 ### Results:
-    You should have:
-    1. start.pdb, start.psf ready for equilibration.
-       hold.ref, hold_ca.ref
-       Consider the Voth_Method
+You should have the following ready for equilibration:
+    1. start.pdb, start.psf
+    2. hold.ref, hold_ca.ref
 
 ## Minimization & Equilibration
 ### Description: 
