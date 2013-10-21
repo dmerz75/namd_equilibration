@@ -41,7 +41,7 @@ Start vmd.
 
         vmd
 
-Open the TK Console window: VMD Main -> Extensions -> TK Console.
+Open the TK Console window: ``VMD Main -> Extensions -> TK Console``.
 On the VMD TkConsole (% indicates a TkCon commmand) enter:
 Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
 
