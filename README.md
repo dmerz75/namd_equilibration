@@ -1,69 +1,60 @@
 # NAMD Equilibrated Systems
-by: Dale R. Merz Jr.
-====================
 Setting up solvated NAMD systems
+================================
+Our test case is with amino acid residues 37-42 in protein 3bgm.
 
-## Prepare your structure.
-   Find it on the protein data bank.
-Download PDB File (Text)
-Alter the coordinates and sequence as necessary.
+## Structure Preparations
+Find it on the protein data bank.
+Download PDB File (Text).
+Next, alter the coordinates and sequence as necessary.
+Finally, proceed to psfgen section.
 
-## PSFGEN: preparation
-### Description: 
-    Using the 000.NAMD_psfgen_package directory, let's create the psf file.
-### Objective: 
-to correctly generate psf and pdb files for equilibration, in any
-solvent (vacuum, implicit, explicit).
-### Directions:
-Let us start with a generic name.
-#### 
-1. name the pdb file accordingly, i.e. 00.pdb (see noh.pgn)
-2. Generate the protein structure with no hydrogens.
-   On the command line, enter:
-   >>> vmd -dispdev text -e noh.pgn > noh.log
-3. Generate the psf (protein structure file).
-   On the command line, enter:
-   >>> vmd -dispdev text -e psf.pgn > psf.log
-4. Start vmd.
-   >>> vmd
-   Open the TK Console window from the VMD Main -> Extensions -> TK Console.
-   On the VMD TkConsole, enter:
-   % source solvate.pgn
-   % source ionize.pgn
-   % exit
-   Change the executed commands section. Identify 1st and last CA's.    
-   >>> vmd -psf ionized.psf -pdb ionized.pdb
-   % source load_rotate_origin_cminmax.tcl
-
-### Results:
-You should have the following ready for equilibration:
-    1. start.pdb, start.psf
-    2. hold.ref, hold_ca.ref
+## PSFGEN: protein structure file generation
+Using the 000.NAMD_psfgen_package directory, let's create the psf file.
+Let us start with a generic name, 00.pdb, for our starting protein coordinates,
+in an empty directory called prep. (namd_equilibration/molecules_repo/3bgm/prep)
+        cd molecules_repo
+        mkdir 3bgm
+        cd 3bgm
+        mkdir prep
+        cp ~/Downloads/3bgm.pdb prep/00.pdb
+        cd prep
+We need the tcl-based pgn scripts from 000.NAMD_psfgen_package directory.
+        cp ../../../000.NAMD_psfgen_package/* .
+Now, we use noh.pgn to remove the hydrogens from your protein.
+        vmd -dispdev text -e noh.pgn > noh.log
+Generate the psf (protein structure file) using psf.pgn.
+        vmd -dispdev text -e psf.pgn > psf.log
+Start vmd.
+        vmd
+Open the TK Console window: VMD Main -> Extensions -> TK Console.
+On the VMD TkConsole (% indicates a TkCon commmand) enter:
+Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
+        % source solvate.pgn
+        % source ionize.pgn
+        % exit
+Next, use load_rotate_origin_cminmax.tcl to rotate your protein, place the \alpha-carbon
+of your choice near the origin (slightly shifted, 0.05,-0.1,0.02), obtain the minimum and
+maximum dimensions of your solvated system and its center. These will be written to an outfile
+titled, center_minmax_start.dat.
+Note: Necessary adjustments to load_rotate_origin_cminmax.tcl include identifying the
+\alpha-carbon residue positions that are to be aligned on the z-axis and the shift from the
+origin you may desire.
+        vmd -psf ionized.psf -pdb ionized.pdb
+        % source load_rotate_origin_cminmax.tcl
+You should have the following ready for equilibration
+        ls *
+        start.pdb start.psf hold.ref hold_ca.ref
 
 ## Minimization & Equilibration
-### Description: 
-    Minimization and equilibration will remove internal potential energy and
-    prepare systems for production simulations.
-#### Vacuum: 
-     minv.namd
-#### Implicit: 
-     mini.namd
-#### Explicit: 
-     mine.namd
-#### Temperature Increases: 
-     1. tempbyfor.namd: using a for loop
-     2. tempbyreassign.namd: raising the temperature by reassign
+Minimization and equilibration will remove internal potential energy and
+prepare your system for production simulations.
+        Vacuum: minv.namd
+        Implicit: mini.namd
+        Explicit: mine.namd
+        Temperature Increases: tempbyfor.namd, tempbyreassign.namd
 
 ## Voth Method / Equilibrating Explicitly Solvated Systems
-### Description: 
-    Follow the Voth methodology described in voth_method directory.
-    1) downloaded 3BGM.pdb
-    2) selected residues 37-42 residues, wrote 00.pdb (w/ 37-42 residues)
-    3) mkdir prep
-    4) cp 00.pdb prep
-    5) cp ../../../000.NAMD_psfgen_package/* prep/
-    6) follow README_psfgen_package
-    7) mkdir ../equilibrate
-    8) cp start.pdb start.psf center_minmax_start.dat ../equilibrate/
-    8b)cp hold* par_all27* ../equilibrate/
-    9) 
+This section will equilibrate an explicitly solvated protein system for further study.
+        mkdir ../equilibrate
+        cp start* hold* par_all27* center_minmax_start.dat ../equilibrate/
