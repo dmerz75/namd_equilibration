@@ -33,6 +33,8 @@ Now, we use noh.pgn to remove the hydrogens from your protein.
 
         vmd -dispdev text -e noh.pgn > noh.log
 
+*View [noh.pgn](http://github.github.com/namd_equilibration/000.NAMD_psfgen_package/noh.pgn).*
+
 Generate the psf (protein structure file) using psf.pgn.
 
         vmd -dispdev text -e psf.pgn > psf.log
@@ -78,8 +80,8 @@ prepare your system for production simulations.
         Explicit: mine.namd
         Temperature Increases: tempbyfor.namd, tempbyreassign.namd
 
-## Voth Method / Equilibrating Explicitly Solvated Systems
-This section will equilibrate an explicitly solvated protein system for further study.
+## Voth Method Equilibration 
+For equilibrating explicitly solvated systems.
 
         mkdir ../equilibrate
 
