@@ -33,8 +33,7 @@ Now, we use noh.pgn to remove the hydrogens from your protein.
 
         vmd -dispdev text -e noh.pgn > noh.log
 
-;; *View [noh.pgn](http://github.github.com/namd_equilibration/000.NAMD_psfgen_package/noh.pgn).*
-*View [noh.pgn](https://github.com/dmerz75/namd_equilibration/000.NAMD_psfgen_package/noh.pgn).*
+*View source, [noh.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/noh.pgn).*
 
 Generate the psf (protein structure file) using psf.pgn.
 
