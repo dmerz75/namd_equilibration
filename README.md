@@ -39,6 +39,8 @@ Generate the psf (protein structure file) using psf.pgn.
 
         vmd -dispdev text -e psf.pgn > psf.log
 
+*View source, [psf.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/psf.pgn).*
+
 Start vmd.
 
         vmd
@@ -53,17 +55,23 @@ Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
 
         % exit
 
-Next, use load_rotate_origin_cminmax.tcl to rotate your protein, place the \alpha-carbon
+*View source, [solvate.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/solvate.pgn).*
+*View source, [ionize.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/ionize.pgn).*
+
+
+Next, use load_rotate_origin_cminmax.tcl to rotate your protein, place the alpha-carbon
 of your choice near the origin (slightly shifted, 0.05,-0.1,0.02), obtain the minimum and
 maximum dimensions of your solvated system and its center. These will be written to an outfile
 titled, center_minmax_start.dat.
 Note: Necessary adjustments to load_rotate_origin_cminmax.tcl include identifying the
-\alpha-carbon residue positions that are to be aligned on the z-axis and the shift from the
+alpha-carbon residue positions that are to be aligned on the z-axis and the shift from the
 origin you may desire.
 
         vmd -psf ionized.psf -pdb ionized.pdb
 
         % source load_rotate_origin_cminmax.tcl
+
+*View source, [load_rotate_origin_cminmax.tcl](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/load_rotate_origin_cminmax.tcl).*
 
 You should have the following ready for equilibration
 
