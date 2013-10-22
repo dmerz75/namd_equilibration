@@ -40,29 +40,29 @@ Generate the psf (protein structure file) using psf.pgn.
 
 Alternatives:
 * if Waters or residues Histidine or Isoleucine are in your protein coordinates, consider altering psf.pgn after the `topology top_all27_prot_lipid.rtf` and before `segment PTN {`:
-```tcl
-topology top_all27_prot_lipid.rtf
 
-pdbalias residue HIS HSE
-pdbalias residue HOH TIP3
-pdbalias atom ILE CD1 CD
-pdbalias atom HOH O OH2
+        topology top_all27_prot_lipid.rtf
+        
+        pdbalias residue HIS HSE
+        pdbalias residue HOH TIP3
+        pdbalias atom ILE CD1 CD
+        pdbalias atom HOH O OH2
 
-segment PTN {
-  pdb noh.pdb
-}
-```
+        segment PTN {
+          pdb noh.pdb
+          }
+
 * if capping alternatives for your protein or peptide are required, consider capping your protein by inserting the following snippets between the `segment PTN{}`:
-```tcl
-# build protein segment
-segment PTN {
-  pdb noh.pdb
-  first ACE
-  # last CT3
-  # last none
-  last CT2
-}
-```
+
+        # build protein segment
+        segment PTN {
+          pdb noh.pdb
+          first ACE
+          # last CT3
+          # last none
+          last CT2
+          }
+
 *View source, [psf.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/psf.pgn).*
 
 Start vmd.
@@ -93,7 +93,7 @@ proc solvation { molec } {
 *View source, [solvate.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/solvate.pgn).*
 
 Alternatives for ionize.pgn:
-*See [alternate ionization options](www.ks.uiuc.edu/Research/vmd/plugins/autoionize/).*
+*See [alternate ionization options](www.ks.uiuc.edu/Research/vmd/plugins/autoionize).*
 
 *View source, [ionize.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/ionize.pgn).*
 
