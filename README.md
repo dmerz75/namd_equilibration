@@ -81,19 +81,18 @@ Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
 
 Alternatives for solvate.pgn:
 * Proper solvation is needed here:
-```tcl
-proc solvation { molec } {
-    mol load psf vac.psf pdb vac.pdb
-    package require solvate
-    # solvate vac.psf vac.pdb -t 7 -o wbox
-    solvate vac.psf vac.pdb -x 6 -y 5 -z 5 +x 6 +y 5 +z 22 -o wbox
-}
-```
+
+        proc solvation { molec } {
+            mol load psf vac.psf pdb vac.pdb
+            package require solvate
+            # solvate vac.psf vac.pdb -t 7 -o wbox
+            solvate vac.psf vac.pdb -x 6 -y 5 -z 5 +x 6 +y 5 +z 22 -o wbox
+            }
 
 *View source, [solvate.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/solvate.pgn).*
 
 Alternatives for ionize.pgn:
-*See [alternate ionization options](www.ks.uiuc.edu/Research/vmd/plugins/autoionize).*
+* *See [alternate ionization options](www.ks.uiuc.edu/Research/vmd/plugins/autoionize).*
 
 *View source, [ionize.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/ionize.pgn).*
 
@@ -136,4 +135,4 @@ using NAMD in the NVT and NPT ensembles.
 
         cp start* hold* par_all27* center_minmax_start.dat ../equilibrate/
 
-* Chu, J.-W. & Voth, G. a. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
+* Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
