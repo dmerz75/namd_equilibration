@@ -1,0 +1,105 @@
+#############################################################
+## JOB DESCRIPTION                                         ##
+#############################################################
+# Equilibration in Explicit Solvent
+# ~ 1 ns 
+#############################################################
+## ADJUSTABLE PARAMETERS                                   ##
+#############################################################
+
+structure          start.psf
+coordinates        02_nvt.coor
+set temperature    310
+set outputname     03_nvt
+
+#############################################################
+## SIMULATION PARAMETERS                                   ##
+#############################################################
+# Input
+paraTypeCharmm	    on
+parameters          par_all27_prot_lipid.prm 
+# velocities          nvtOut1.vel
+temperature         $temperature
+
+# Force-Field Parameters
+exclude             scaled1-4
+1-4scaling          1.0
+cutoff              12.0
+switching           on
+switchdist          10.0
+pairlistdist        14.0
+
+# Integrator Parameters
+timestep            2.0  ;# 2fs/step
+rigidBonds          all  ;# needed for 2fs steps
+nonbondedFreq       1
+fullElectFrequency  2  
+stepspercycle       10
+
+# Constant Temperature Control
+langevin            off     ;# do langevin dynamics         # VERIFIED?
+langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
+langevinTemp        310    ;# $temperature
+langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
+
+
+# Periodic Boundary conditions
+# NOTE: Do not set the periodic cell basis if you have also 
+# specified an .xsc restart file!
+if {1} { 
+cellBasisVector1  xx_cbx_xx 0.0 0.0
+cellBasisVector2  0.0 xx_cby_xx 0.0
+cellBasisVector3  0.0 0.0 xx_cbz_xx
+cellOrigin    xx_xx_xx xx_yy_xx xx_zz_xx
+}
+# wrapWater           on
+wrapAll             on
+
+
+# PME (for full-system periodic electrostatics)
+if {1} {
+PME                  yes
+PMEGridSpacing       1.0
+# manual grid definition
+PMEGridSizeX         32
+PMEGridSizeY         32
+PMEGridSizeZ         32
+}
+
+# Constant Pressure Control (variable volume)
+useGroupPressure      yes ;# needed for rigidBonds
+useFlexibleCell       no
+useConstantArea       no
+
+langevinPiston        on
+langevinPistonTarget  1.01325 ;# in bar -> 1 atm
+langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
+langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
+langevinPistonTemp    310     ;# $temperature
+
+# langevinPistonPeriod  100.0
+# langevinPistonDecay   50.0
+
+# Output
+binaryoutput        no
+outputName          $outputname
+restartfreq         50      ;# 500steps = every 1ps
+dcdfreq             50
+xstFreq             50
+outputEnergies      50
+outputPressure      50
+
+#############################################################
+##  EXTRA PARAMETERS                                       ##
+#############################################################
+# Fixed Atoms Constraint (set PDB beta-column to 1)
+if {1} {
+fixedAtoms          on
+fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
+fixedAtomsCol       B
+}
+#############################################################
+## EXECUTION SCRIPT                                        ##
+#############################################################
+
+run 500
