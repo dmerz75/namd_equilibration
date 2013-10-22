@@ -90,7 +90,11 @@ prepare your system for production simulations.
 
 ## Voth Method Equilibration 
 For equilibrating explicitly solvated systems.
+To preequilibrate and equilibrate explicitly solvated chemical systems
+using NAMD in the NVT and NPT ensembles.
 
         mkdir ../equilibrate
 
         cp start* hold* par_all27* center_minmax_start.dat ../equilibrate/
+
+* Chu, J.-W. & Voth, G. a. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
