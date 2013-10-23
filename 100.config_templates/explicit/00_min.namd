@@ -72,12 +72,9 @@ useConstantArea       no
 
 langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
-langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
-langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
+langevinPistonPeriod  2000.0  ;# [100.0] | (fs) typically 200 fs, Voth: 2 ps
+langevinPistonDecay   2000.0  ;# [50.0 ] | (fs) damping, typ 100 fs, Voth: 2 ps
 langevinPistonTemp    $temperature
-
-# langevinPistonPeriod  100.0
-# langevinPistonDecay   50.0
 
 # Output
 binaryoutput        no
@@ -97,6 +94,11 @@ fixedAtoms          on
 fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
 fixedAtomsCol       B
 }
+constraints  on
+consref      hold_ca.ref
+conskfile    hold_ca.ref
+conskcol     B
+constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################

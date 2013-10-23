@@ -9,7 +9,7 @@
 
 structure          start.psf
 coordinates        00_min.coor
-set temperature    310
+set temperature    40
 set outputname     01_tempFor
 
 #############################################################
@@ -38,31 +38,29 @@ stepspercycle       10
 # Constant Temperature Control
 langevin            off     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        310    ;# $temperature
+langevinTemp        $temperature ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
-
 
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1  xx_cbx_xx 0.0 0.0
-cellBasisVector2  0.0 xx_cby_xx 0.0
-cellBasisVector3  0.0 0.0 xx_cbz_xx
-cellOrigin    xx_xx_xx xx_yy_xx xx_zz_xx
+cellBasisVector1  26.85 0.0 0.0
+cellBasisVector2  0.0 28.0 0.0
+cellBasisVector3  0.0 0.0 26.3
+cellOrigin    2.3 1.05 4.17
 }
 # wrapWater           on
 wrapAll             on
-
 
 # PME (for full-system periodic electrostatics)
 if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         32
-PMEGridSizeY         32
-PMEGridSizeZ         32
+PMEGridSizeX         28
+PMEGridSizeY         28
+PMEGridSizeZ         28
 }
 
 # Constant Pressure Control (variable volume)
@@ -72,12 +70,9 @@ useConstantArea       no
 
 langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
-langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
-langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
-langevinPistonTemp    310     ;# $temperature
-
-# langevinPistonPeriod  100.0
-# langevinPistonDecay   50.0
+langevinPistonPeriod  2000.0  ;# [100.0] | (fs) typically 200 fs, Voth: 2 ps
+langevinPistonDecay   2000.0  ;# [50.0 ] | (fs) damping, typ 100 fs, Voth: 2 ps
+langevinPistonTemp    $temperature
 
 # Output
 binaryoutput        no
@@ -92,18 +87,25 @@ outputPressure      50
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
 # Fixed Atoms Constraint (set PDB beta-column to 1)
-if {1} {
+if {0} {
 fixedAtoms          on
 fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
 fixedAtomsCol       B
 }
+constraints  on
+consref      hold_ca.ref
+conskfile    hold_ca.ref
+conskcol     B
+constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
 
-set freq 50
-for {set i 40} {$i <= $temperature} {incr i 6} {
+set freq 100
+for {set i 40} {$i <= 310} {incr i 6} {
+    temperature $i
     langevinTemp $i
+    langevinPistonTemp $i
     reinitvels $i
     run $freq
 }

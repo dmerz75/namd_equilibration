@@ -8,9 +8,10 @@
 #############################################################
 
 structure          start.psf
-coordinates        05_npt.coor
-set temperature    310
-set outputname     06_npt
+coordinates        start.pdb 
+set outputname     00_min
+
+firsttimestep      0
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -18,7 +19,7 @@ set outputname     06_npt
 # Input
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm 
-# velocities          nptOut4.vel
+set temperature     310
 temperature         $temperature
 
 # Force-Field Parameters
@@ -37,47 +38,43 @@ fullElectFrequency  2
 stepspercycle       10
 
 # Constant Temperature Control
-langevin            on     ;# do langevin dynamics         # VERIFIED?
+langevin            off     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        310    ;# $temperature
+langevinTemp        $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1  xx_cbx_xx 0.0 0.0
-cellBasisVector2  0.0 xx_cby_xx 0.0
-cellBasisVector3  0.0 0.0 xx_cbz_xx
-cellOrigin    xx_xx_xx xx_yy_xx xx_zz_xx
+cellBasisVector1    32.0   0.0   0.0
+cellBasisVector2     0.0  32.0   0.0
+cellBasisVector3     0.0   0.0  32.0
+cellOrigin           2.3   1.04  4.2 
 }
 # wrapWater           on
 wrapAll             on
-
 
 # PME (for full-system periodic electrostatics)
 if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-# 24,27,30,32,36,40,45,48
-PMEGridSizeX         28
-PMEGridSizeY         24
-PMEGridSizeZ         24
+PMEGridSizeX         32
+PMEGridSizeY         32
+PMEGridSizeZ         32
 }
 
 # Constant Pressure Control (variable volume)
-# for protein in water, (see node24.html - unix-tut-namd)
-# water will become highly extended, use NO
 useGroupPressure      yes ;# needed for rigidBonds
-useFlexibleCell       no  ;# no for wbox, yes for membrane
-useConstantArea       no  ;# no for wbox, maybe for membrane
+useFlexibleCell       no
+useConstantArea       no
 
 langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
 langevinPistonPeriod  2000.0  ;# [100.0] | (fs) typically 200 fs, Voth: 2 ps
-langevinPistonDecay   2000.0  ;# [ 50.0] | (fs) damping, typ 100 fs, Voth: 2 ps
-langevinPistonTemp    310     ;# $temperature
+langevinPistonDecay   2000.0  ;# [50.0 ] | (fs) damping, typ 100 fs, Voth: 2 ps
+langevinPistonTemp    $temperature
 
 # Output
 binaryoutput        no
@@ -97,8 +94,12 @@ fixedAtoms          on
 fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
 fixedAtomsCol       B
 }
+constraints  on
+consref      hold_ca.ref
+conskfile    hold_ca.ref
+conskcol     B
+constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-
-run 500
+minimize            160      ;# Voth: Conjugate Gradient, 16000
