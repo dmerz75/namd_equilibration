@@ -8,9 +8,10 @@
 #############################################################
 
 structure          start.psf
-coordinates        01_tempFor.coor
-set temperature    310
-set outputname     02_nvt
+coordinates        01_min.coor
+set outputname     02_min
+
+firsttimestep      0
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -18,6 +19,7 @@ set outputname     02_nvt
 # Input
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm 
+set temperature     310
 temperature         $temperature
 
 # Force-Field Parameters
@@ -38,30 +40,29 @@ stepspercycle       10
 # Constant Temperature Control
 langevin            off     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        310    ;# $temperature
+langevinTemp        $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1  23.99 0.0 0.0
-cellBasisVector2  0.0 25.44 0.0
-cellBasisVector3  0.0 0.0 24.31
-cellOrigin    2.34 1.17 4.08
+cellBasisVector1    32.0   0.0   0.0
+cellBasisVector2     0.0  32.0   0.0
+cellBasisVector3     0.0   0.0  32.0
+cellOrigin           2.3   1.04  4.2 
 }
 # wrapWater           on
 wrapAll             on
-
 
 # PME (for full-system periodic electrostatics)
 if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         28
-PMEGridSizeY         28
-PMEGridSizeZ         28
+PMEGridSizeX         32
+PMEGridSizeY         32
+PMEGridSizeZ         32
 }
 
 # Constant Pressure Control (variable volume)
@@ -88,26 +89,17 @@ outputPressure      50
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
 # Fixed Atoms Constraint (set PDB beta-column to 1)
-# if {1} {
-# fixedAtoms          on
-# fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
-# fixedAtomsCol       B
-# }
+if {0} {
+fixedAtoms          on
+fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
+fixedAtomsCol       B
+}
 constraints  on
 consref      hold_ca.ref
 conskfile    hold_ca.ref
 conskcol     B
-constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
+constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-
-for {set i 1} {$i <= 3} {incr i 1} {
-    set ck [expr {10**[expr {3-$i}]}]
-    set time [expr {[expr {$i + 1}] * 10}]
-    constraintScaling $ck
-    run $time
-}
-
-constraintScaling 0.0
-run 5000   ;# the final 10 ps
+minimize            160      ;# Voth: Conjugate Gradient, 16000

@@ -8,10 +8,9 @@
 #############################################################
 
 structure          start.psf
-coordinates        start.pdb 
-set outputname     00_min
-
-firsttimestep      0
+coordinates        02_min.coor
+set temperature    40
+set outputname     03_heat
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -19,7 +18,6 @@ firsttimestep      0
 # Input
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm 
-set temperature     310
 temperature         $temperature
 
 # Force-Field Parameters
@@ -40,17 +38,17 @@ stepspercycle       10
 # Constant Temperature Control
 langevin            off     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        $temperature
+langevinTemp        $temperature ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1    32.0   0.0   0.0
-cellBasisVector2     0.0  32.0   0.0
-cellBasisVector3     0.0   0.0  32.0
-cellOrigin           2.3   1.04  4.2 
+cellBasisVector1  26.85 0.0 0.0
+cellBasisVector2  0.0 28.0 0.0
+cellBasisVector3  0.0 0.0 26.3
+cellOrigin    2.3 1.05 4.17
 }
 # wrapWater           on
 wrapAll             on
@@ -60,9 +58,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         32
-PMEGridSizeY         32
-PMEGridSizeZ         32
+PMEGridSizeX         28
+PMEGridSizeY         28
+PMEGridSizeZ         28
 }
 
 # Constant Pressure Control (variable volume)
@@ -98,10 +96,18 @@ constraints  on
 consref      hold_ca.ref
 conskfile    hold_ca.ref
 conskcol     B
-constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
+constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-velocityQuenching   on
-maximumMove         0.75
-minimize            200          ;# Voth: 2000
+
+set freq 100
+for {set i 40} {$i <= 310} {incr i 6} {
+    temperature $i
+    langevinTemp $i
+    langevinPistonTemp $i
+    reinitvels $i
+    run $freq
+}
+
+run 500   ;# 5000 = 10 ps

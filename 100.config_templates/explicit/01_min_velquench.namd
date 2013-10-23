@@ -9,7 +9,7 @@
 
 structure          start.psf
 coordinates        start.pdb 
-set outputname     00_min
+set outputname     01_min
 
 firsttimestep      0
 
@@ -98,8 +98,10 @@ constraints  on
 consref      hold_ca.ref
 conskfile    hold_ca.ref
 conskcol     B
-constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
+constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-minimize            160      ;# Voth: Conjugate Gradient, 16000
+velocityQuenching   on
+maximumMove         0.75
+minimize            200          ;# Voth: 2000
