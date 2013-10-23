@@ -1,0 +1,7 @@
+# Fixed Atoms Constraint (set PDB beta-column to 1)
+# if {1} {
+# fixedAtoms          on
+# fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
+# fixedAtomsCol       B
+# }
+
