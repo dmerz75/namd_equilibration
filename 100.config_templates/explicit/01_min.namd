@@ -60,9 +60,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         32
-PMEGridSizeY         32
-PMEGridSizeZ         32
+PMEGridSizeX         20  ;# Use multiples of 2,3,5
+PMEGridSizeY         20  ;# 
+PMEGridSizeZ         20  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -79,11 +79,11 @@ langevinPistonTemp    $temperature
 # Output
 binaryoutput        no
 outputName          $outputname
-restartfreq         50      ;# 500steps = every 1ps
-dcdfreq             50
-xstFreq             50
-outputEnergies      50
-outputPressure      50
+restartfreq         100     ;# 500steps = every 1ps
+dcdfreq             100
+xstFreq             100
+outputEnergies      100
+outputPressure      100
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
@@ -104,4 +104,4 @@ constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
 #############################################################
 velocityQuenching   on
 maximumMove         0.75
-minimize            200          ;# Voth: 2000
+minimize            2000     ;# Voth: 2000

@@ -160,7 +160,6 @@ Next, complete all 5 stages of minimization/equilibration.
 
         ./cp_psf.py
 
-
         vmd -psf 01_min.psf -pdb 01_min.coor -dispdev text -e minmax_density.tcl
 
 repeat ... OR ... run the next 2 commands instead of the previous one.
