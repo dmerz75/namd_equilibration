@@ -154,11 +154,16 @@ Next, complete all 5 stages of minimization/equilibration.
 
         ./write_cell_basis.py
 
-        vi 02_min.namd   # adjust the PME Gridsize
+        vi 01_min.namd   # adjust the PME Gridsize
 
         namd2 +p2 01_min.namd > 01_min.log
 
         ./cp_psf.py
+
+
+        vmd -psf 01_min.psf -pdb 01_min.coor -dispdev text -e minmax_density.tcl
+
+repeat ... OR ... run the next 2 commands instead of the previous one.
 
         vmd -psf 01_min.psf -pdb 01_min.coor
 
