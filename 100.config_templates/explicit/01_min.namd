@@ -8,8 +8,8 @@
 #############################################################
 
 structure          start.psf
-coordinates        01_min.coor
-set outputname     02_min
+coordinates        start.pdb 
+set outputname     01_min
 
 firsttimestep      0
 
@@ -47,10 +47,10 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1    32.0   0.0   0.0
-cellBasisVector2     0.0  32.0   0.0
-cellBasisVector3     0.0   0.0  32.0
-cellOrigin           2.3   1.04  4.2 
+cellBasisVector1 xx_cbx_xx 0.0 0.0
+cellBasisVector2 0.0 xx_cby_xx 0.0
+cellBasisVector3 0.0 0.0 xx_cbz_xx
+cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 }
 # wrapWater           on
 wrapAll             on
@@ -98,8 +98,10 @@ constraints  on
 consref      hold_ca.ref
 conskfile    hold_ca.ref
 conskcol     B
-constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
+constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-minimize            160      ;# Voth: Conjugate Gradient, 16000
+velocityQuenching   on
+maximumMove         0.75
+minimize            200          ;# Voth: 2000

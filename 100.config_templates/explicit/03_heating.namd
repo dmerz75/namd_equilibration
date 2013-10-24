@@ -10,7 +10,7 @@
 structure          start.psf
 coordinates        02_min.coor
 set temperature    40
-set outputname     03_heat
+set outputname     03_heating
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -45,10 +45,11 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1  26.85 0.0 0.0
-cellBasisVector2  0.0 28.0 0.0
-cellBasisVector3  0.0 0.0 26.3
-cellOrigin    2.3 1.05 4.17
+cellBasisVector1 xx_cbx_xx 0.0 0.0
+cellBasisVector2 0.0 xx_cby_xx 0.0
+cellBasisVector3 0.0 0.0 xx_cbz_xx
+cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
+
 }
 # wrapWater           on
 wrapAll             on

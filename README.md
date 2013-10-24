@@ -136,3 +136,19 @@ using NAMD in the NVT and NPT ensembles.
         cp start* hold* par_all27* center_minmax_start.dat ../equilibrate/
 
 * Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
+
+Next, complete all 5 stages of minimization/equilibration.
+
+        ./write_cell_basis.py
+
+        vi 02_min.namd   # adjust the PME Gridsize
+
+        namd2 +p2 01_min.namd > 01_min.log
+
+        ./cp_psf.py
+
+        vmd -psf 01_min.psf -pdb 01_min.coor
+
+        % source minmax_density.tcl
+
+Repeat, through stage 05.

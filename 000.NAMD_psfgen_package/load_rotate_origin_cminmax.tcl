@@ -44,8 +44,8 @@ proc orient_protein_on_z { molec start end } {
     set pos_begin [vecinvert [measure center $resid_CA_begin_coord]]
     $all moveby $pos_begin
     $all moveby {0.01 -0.05 0.08}
-    $all writepsf start.psf
-    $all writepdb start.pdb
+    $all writepsf 00_start.psf
+    $all writepdb 00_start.pdb
 
     set ptn_ca [atomselect $molec "segname PTN and name CA"]
     $ptn_ca set beta 1
@@ -98,7 +98,7 @@ proc solvation { molec } {
 
 proc get_center_minmax { molec } {
     # protein
-    mol load psf start.psf pdb start.pdb
+    mol load psf 00_start.psf pdb 00_start.pdb
     set all [atomselect $molec all]
 
     set mm [measure minmax $all]
