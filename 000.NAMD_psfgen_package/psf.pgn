@@ -14,9 +14,9 @@ topology top_all27_prot_lipid.rtf
 segment PTN {
   pdb noh.pdb
   # first ACE
-  # first none
+  first none
   # last CT2
-  # last none
+  last none
   # last CT3
 }
 

@@ -135,7 +135,7 @@ using NAMD in the NVT and NPT ensembles.
 
         cp 00_start* hold* par_all27_prot_lipid.prm center_minmax_00_start.dat ../equilibrate/
 
-* Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
+* See the supporting materials, page 3. Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
 
 Copy over the .namd configuration files.
         

@@ -102,4 +102,4 @@ constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-minimize            160      ;# Voth: Conjugate Gradient, 16000
+minimize            16000      ;# Voth: Conjugate Gradient, 16000
