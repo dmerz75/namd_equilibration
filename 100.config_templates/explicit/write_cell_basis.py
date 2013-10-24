@@ -5,6 +5,7 @@ from glob import *
 my_dir = os.path.abspath(os.path.dirname(__file__))
 
 completed = {}
+completed['00']='00_start'
 for path in glob(os.path.join(my_dir,"[0-9][0-9]_*.coor")):
     if path.split('.')[1].split('.')[0] == 'restart':
         pass

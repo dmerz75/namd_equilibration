@@ -145,8 +145,10 @@ Copy over the .namd configuration files.
         
         ls
 
-        00_start.pdb  01_min.namd  03_heating.namd  05_npt.namd                 cp_psf.py    hold.ref            par_all27_prot_lipid.prm
-        00_start.psf  02_min.namd  04_nvt.namd      center_minmax_00_start.dat  hold_ca.ref  minmax_density.tcl  write_cell_basis.py
+        00_start.pdb  01_min.namd         03_heating.namd  05_npt.namd
+        cp_psf.py     hold.ref            par_all27_prot_lipid.prm
+        00_start.psf  02_min.namd         04_nvt.namd      center_minmax_00_start.dat
+        hold_ca.ref   minmax_density.tcl  write_cell_basis.py
 
 Next, complete all 5 stages of minimization/equilibration.
 
@@ -162,4 +164,4 @@ Next, complete all 5 stages of minimization/equilibration.
 
         % source minmax_density.tcl
 
-Repeat, through stage 05.
+Repeat, for all 5 stages.

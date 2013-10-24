@@ -7,9 +7,9 @@
 ## ADJUSTABLE PARAMETERS                                   ##
 #############################################################
 
-structure          start.psf
+structure          00_start.psf
 coordinates        02_min.coor
-set temperature    40
+set temperature    310
 set outputname     03_heating
 
 #############################################################
@@ -36,7 +36,7 @@ fullElectFrequency  2
 stepspercycle       10
 
 # Constant Temperature Control
-langevin            off     ;# do langevin dynamics         # VERIFIED?
+langevin            off    ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
 langevinTemp        $temperature ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
@@ -49,7 +49,6 @@ cellBasisVector1 xx_cbx_xx 0.0 0.0
 cellBasisVector2 0.0 xx_cby_xx 0.0
 cellBasisVector3 0.0 0.0 xx_cbz_xx
 cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
-
 }
 # wrapWater           on
 wrapAll             on
@@ -103,10 +102,10 @@ constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 
 set freq 100
-for {set i 40} {$i <= 310} {incr i 6} {
-    temperature $i
+for {set i 40} {$i <= $temperature} {incr i 6} {
+    #temperature $i
     langevinTemp $i
-    langevinPistonTemp $i
+    #langevinPistonTemp $i
     reinitvels $i
     run $freq
 }

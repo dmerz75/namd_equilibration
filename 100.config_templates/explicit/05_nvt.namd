@@ -8,10 +8,9 @@
 #############################################################
 
 structure          00_start.psf
-coordinates        01_min.coor
-set outputname     02_min
-
-firsttimestep      0
+coordinates        04_nvt.coor
+set temperature    310
+set outputname     05_nvt
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -19,7 +18,6 @@ firsttimestep      0
 # Input
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm 
-set temperature     310
 temperature         $temperature
 
 # Force-Field Parameters
@@ -40,7 +38,7 @@ stepspercycle       10
 # Constant Temperature Control
 langevin            off     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        $temperature
+langevinTemp        310    ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
@@ -55,14 +53,15 @@ cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 # wrapWater           on
 wrapAll             on
 
+
 # PME (for full-system periodic electrostatics)
 if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         32
-PMEGridSizeY         32
-PMEGridSizeZ         32
+PMEGridSizeX         25
+PMEGridSizeY         25
+PMEGridSizeZ         25
 }
 
 # Constant Pressure Control (variable volume)
@@ -94,12 +93,15 @@ fixedAtoms          on
 fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
 fixedAtomsCol       B
 }
+if {0} {
 constraints  on
 consref      hold_ca.ref
 conskfile    hold_ca.ref
 conskcol     B
-constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
+# constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
+}
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-minimize            160      ;# Voth: Conjugate Gradient, 16000
+
+run 500   ;# 5000 = 10 ps

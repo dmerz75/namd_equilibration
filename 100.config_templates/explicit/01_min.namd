@@ -7,8 +7,8 @@
 ## ADJUSTABLE PARAMETERS                                   ##
 #############################################################
 
-structure          start.psf
-coordinates        start.pdb 
+structure          00_start.psf
+coordinates        00_start.pdb 
 set outputname     01_min
 
 firsttimestep      0

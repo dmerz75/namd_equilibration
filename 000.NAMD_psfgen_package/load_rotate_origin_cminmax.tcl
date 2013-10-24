@@ -98,6 +98,7 @@ proc solvation { molec } {
 
 proc get_center_minmax { molec } {
     # protein
+    # mol load psf start.psf pdb start.pdb
     mol load psf 00_start.psf pdb 00_start.pdb
     set all [atomselect $molec all]
 
@@ -110,6 +111,16 @@ proc get_center_minmax { molec } {
     set fname "$cm$f_id.dat"
     set cellbasis [vecsub [lindex $mm 1] [lindex $mm 0]]
 
+    set cbx [lindex $cellbasis 0]
+    set cby [lindex $cellbasis 1]
+    set cbz [lindex $cellbasis 2]
+    set volume [expr $cbx * $cby * $cbz]
+
+    set prot [atomselect top water]
+    set size [$prot num]
+    set num_waters [expr [$prot num] / 3]
+    set density [expr $num_waters / $volume * 29.89]
+
     set outfile [open $fname w];
     puts $outfile "# Molecule ID:"
     puts $outfile "$mol_name"
@@ -117,13 +128,12 @@ proc get_center_minmax { molec } {
     puts $outfile "$cen"
     puts $outfile "# MinMax:"
     puts $outfile "$mm"
+    puts $outfile "# cellbasis:"
     puts $outfile "$cellbasis"
+    puts $outfile "# Density:"
+    puts $outfile "$density"
     close $outfile
     
-    # set a1 [molinfo $molec get center_matrix]
-    # rotate_matrix,global_matrix,scale_matrix,view_matrix
-
-
     draw_origin $molec 12.0 12.0 25.0
 }
 
