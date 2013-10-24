@@ -115,7 +115,7 @@ You should have the following ready for equilibration
 
         ls *
 
-        start.pdb start.psf hold.ref hold_ca.ref
+        00_start.pdb 00_start.psf hold.ref hold_ca.ref
 
 ## Minimization & Equilibration
 Minimization and equilibration will remove internal potential energy and
@@ -133,9 +133,20 @@ using NAMD in the NVT and NPT ensembles.
 
         mkdir ../equilibrate
 
-        cp start* hold* par_all27* center_minmax_start.dat ../equilibrate/
+        cp 00_start* hold* par_all27_prot_lipid.prm center_minmax_00_start.dat ../equilibrate/
 
 * Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
+
+Copy over the .namd configuration files.
+        
+        cd ../equilibrate
+
+        cp ../../../100.config_templates/explicit/* .
+        
+        ls
+
+        00_start.pdb  01_min.namd  03_heating.namd  05_npt.namd                 cp_psf.py    hold.ref            par_all27_prot_lipid.prm
+        00_start.psf  02_min.namd  04_nvt.namd      center_minmax_00_start.dat  hold_ca.ref  minmax_density.tcl  write_cell_basis.py
 
 Next, complete all 5 stages of minimization/equilibration.
 
