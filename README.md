@@ -7,7 +7,7 @@ Download PDB File (Text).
 Next, alter the coordinates and sequence as necessary.
 Finally, proceed to psfgen section.
 
-## PSFGEN: protein structure file generation
+### PSFGEN: protein structure file generation
 Using the 000.NAMD_psfgen_package directory, let's create the psf file.
 Let us start with a generic name, 00.pdb, for our starting protein coordinates,
 in an empty directory called prep. (namd_equilibration/molecules_repo/3bgm/prep)
@@ -65,19 +65,11 @@ Alternatives:
 
 *View source, [psf.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/psf.pgn).*
 
-Start vmd.
-
-        vmd
-
-Open the TK Console window: ``VMD Main -> Extensions -> TK Console``.
-On the VMD TkConsole (% indicates a TkCon commmand) enter:
 Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
 
-        % source solvate.pgn
+        vmd -dispdev text -e solvate.pgn > solvate.log 
 
-        % source ionize.pgn
-
-        % exit
+        vmd -dispdev text -e ionize.pgn > ionize.log
 
 Alternatives for solvate.pgn:
 * Proper solvation is needed here:
@@ -105,35 +97,24 @@ Note: Necessary adjustments to load_rotate_origin_cminmax.tcl include identifyin
 alpha-carbon residue positions that are to be aligned on the z-axis and the shift from the
 origin you may desire.
 
-        vmd -psf ionized.psf -pdb ionized.pdb
-
-        % source load_rotate_origin_cminmax.tcl
+        vmd -dispdev text -e load_rotate_origin_cminmax.tcl
 
 *View source, [load_rotate_origin_cminmax.tcl](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/load_rotate_origin_cminmax.tcl).*
 
 You should have the following ready for equilibration
 
-        ls *
+        mkdir ../equilibrate
 
-        00_start.pdb 00_start.psf hold.ref hold_ca.ref
+        cp 00_start.p* hold* par_all27_prot_lipid.prm center_minmax_00_start.dat ../equilibrate
 
 ## Minimization & Equilibration
 Minimization and equilibration will remove internal potential energy and
 prepare your system for production simulations.
 
-        Vacuum: minv.namd
-        Implicit: mini.namd
-        Explicit: mine.namd
-        Temperature Increases: tempbyfor.namd, tempbyreassign.namd
-
-## Voth Method Equilibration 
+### Voth Method Equilibration 
 For equilibrating explicitly solvated systems.
 To preequilibrate and equilibrate explicitly solvated chemical systems
 using NAMD in the NVT and NPT ensembles.
-
-        mkdir ../equilibrate
-
-        cp 00_start* hold* par_all27_prot_lipid.prm center_minmax_00_start.dat ../equilibrate/
 
 * See the supporting materials, page 3. Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
 
@@ -143,18 +124,11 @@ Copy over the .namd configuration files.
 
         cp ../../../100.config_templates/explicit/* .
         
-        ls
-
-        00_start.pdb  01_min.namd         03_heating.namd  05_npt.namd
-        cp_psf.py     hold.ref            par_all27_prot_lipid.prm
-        00_start.psf  02_min.namd         04_nvt.namd      center_minmax_00_start.dat
-        hold_ca.ref   minmax_density.tcl  write_cell_basis.py
-
 Next, complete all 5 stages of minimization/equilibration.
 
         ./write_cell_basis.py
 
-        vi 01_min.namd   # adjust the PME Gridsize
+        vi 01_min.namd        #  ...  adjust the PME Gridsize ...
 
         namd2 +p2 01_min.namd > 01_min.log
 

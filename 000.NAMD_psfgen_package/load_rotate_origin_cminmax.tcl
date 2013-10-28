@@ -144,11 +144,11 @@ proc get_center_minmax { molec } {
 # _______
 set idn 0
                     # CHANGE 1 (ID number from VMD Main)
-
+mol load psf ionized.psf pdb ionized.pdb
 
 # ___________________
 # orient_protein_on_z
-orient_protein_on_z $idn 37 42          
+orient_protein_on_z $idn 4 367
     # argv: molec first_residue second_residue
     #  - check ionized.pdb
     # hsp70 4,385
