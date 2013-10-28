@@ -102,7 +102,7 @@ constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 
 set freq 100
-for {set i 40} {$i <= $temperature} {incr i 6} {
+for {set i 10} {$i <= $temperature} {incr i 6} {
     #temperature $i
     langevinTemp $i
     #langevinPistonTemp $i
