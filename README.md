@@ -69,7 +69,11 @@ Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
 
         vmd -dispdev text -e solvate.pgn > solvate.log 
 
-        vmd -dispdev text -e ionize.pgn > ionize.log
+        vmd -psf wbox.psf -pdb wbox.pdb
+         
+`VMD Main` -> `Extensions` -> `Tk Console`:
+	
+        % source ionize.pgn
 
 Alternatives for solvate.pgn:
 * Proper solvation is needed here:
