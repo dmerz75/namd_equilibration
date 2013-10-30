@@ -6,4 +6,4 @@ topology top_all27_prot_lipid.rtf
 mol load psf wbox.psf pdb wbox.pdb
 package require solvate
 autoionize -psf wbox.psf -pdb wbox.pdb -neutralize
-exit
+# exit
