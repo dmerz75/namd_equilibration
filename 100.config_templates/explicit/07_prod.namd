@@ -45,10 +45,10 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1 98.52 0.0 0.0
-cellBasisVector2 0.0 65.29 0.0
-cellBasisVector3 0.0 0.0 106.26
-cellOrigin       -9.37 -9.49 24.24
+cellBasisVector1 xx_cbx_xx 0.0 0.0
+cellBasisVector2 0.0 xx_cby_xx 0.0
+cellBasisVector3 0.0 0.0 xx_cbz_xx
+cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 }
 wrapWater           on
 wrapAll             on
@@ -58,9 +58,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         100  ;# Use multiples of 2,3,5
-PMEGridSizeY         66  ;# 
-PMEGridSizeZ         108  ;# Change these !!!
+PMEGridSizeX         20  ;# Use multiples of 2,3,5
+PMEGridSizeY         20  ;# 
+PMEGridSizeZ         20  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -76,12 +76,12 @@ langevinPistonTemp    310     ;# $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             100
-outputEnergies      100
-outputPressure      100
+dcdfreq             1000
+outputEnergies      1000
+outputPressure      1000
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
 
-run 500  ;# 100,000 = 200 ps
+run 2000000  ;# 100,000 = 200 ps

@@ -72,11 +72,15 @@ print max_key,'\t',dot_namd[max_key]
 
 if max_key == '01':
     reg_ex(my_dir,dot_namd[max_key],'xx_coor_xx','07_prod.coor')
-    reg_ex(my_dir,dot_namd[max_key],'xx_stage_xx','01')
+    reg_ex(my_dir,dot_namd[max_key],'xx_stage_xx','01')  # max_key
+    reg_ex(my_dir,dot_namd[max_key],'xx_vel_xx','07_prod')
 else:
-    next_key = str(int(max_key) + 1).zfill(2)
-    reg_ex(my_dir,dot_namd[max_key],'xx_coor_xx','%s_prod.coor' % next_key)
+    #                                         # '02' max _key
+    prev_key = str(int(max_key) - 1).zfill(2) # '01' prev
+    next_key = str(int(max_key) + 1).zfill(2) # '03' next
+    reg_ex(my_dir,dot_namd[max_key],'xx_coor_xx','08_prod_%s.coor' % prev_key)
     reg_ex(my_dir,dot_namd[max_key],'xx_stage_xx',max_key)
+    reg_ex(my_dir,dot_namd[max_key],'xx_vel_xx','08_prod_%s' % prev_key)
 reg_ex(my_dir,dot_namd[max_key],'xxxxx',str(random.randint(100000,999999)))
 
 # cbx = round(float(cellbasis.split(' ')[0]),2) + 0.37

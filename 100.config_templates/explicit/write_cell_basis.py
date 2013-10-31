@@ -28,7 +28,10 @@ stage_08 = max(dot_namd.keys())
 # print max(completed.keys())
 # print stage,next_stage
 
+# fp = "center_minmax_%s.dat" % completed[stage]
+# print fp
 with open("center_minmax_%s.dat" % completed[stage]) as f:
+# with open(fp) as f:
     print f
     # print f.readlines()[7]
     all_lines = f.readlines()
