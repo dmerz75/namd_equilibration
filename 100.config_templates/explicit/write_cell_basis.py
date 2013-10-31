@@ -54,9 +54,12 @@ for path in glob(os.path.join(my_dir,'08_*.namd')):
     except:
         the_eight_list[00] = path
 
-print "\nthe_eight_list\n\t",the_eight_list
-print "\nmaximum\n\t",max(the_eight_list.keys())
-print "\nnext_stage\n\t",next_stage
+try:
+    print "\nthe_eight_list\n\t",the_eight_list
+    print "\nmaximum\n\t",max(the_eight_list.keys())
+    print "\nnext_stage\n\t",next_stage
+except:
+    pass
 
 if stage_08 == '08':
     if max(the_eight_list.keys())=='continue':
