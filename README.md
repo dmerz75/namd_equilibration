@@ -146,4 +146,20 @@ repeat ... OR ... run the next 2 commands instead of the previous one.
 
         % source minmax_density.tcl
 
-Repeat, for all 5 stages.
+Repeat, for all 7 stages. To continue with stage 8:
+
+        ./cp_psf.py
+
+        vmd -psf 01_min.psf -pdb 01_min.coor -dispdev text -e minmax_density.tcl
+	
+	(optional): cp 07_prod.vel 07_prod.coor 07_prod.psf ~/namd_equilibration
+
+	# have 08_prod_continue.namd ready
+
+	./write_cell_basis.py    # to write 08_prod_01.namd
+
+	./write_8.py             # to substitute variables from 08_prod_01.namd
+
+	vi 08_prod_01.namd       # ... adjust the PME Gridsize ...
+
+Submit. Repeat for step 08_prod_02.
