@@ -79,11 +79,11 @@ langevinPistonTemp    $temperature
 # Output
 binaryoutput        no
 outputName          $outputname
-restartfreq         100      ;# 500steps = every 1ps
-dcdfreq             100
-xstFreq             100
-outputEnergies      100
-outputPressure      100
+restartfreq         1000      ;# 500steps = every 1ps
+dcdfreq             1000
+xstFreq             1000
+outputEnergies      1000
+outputPressure      1000
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##

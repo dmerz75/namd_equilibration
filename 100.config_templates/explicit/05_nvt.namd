@@ -50,7 +50,7 @@ cellBasisVector2 0.0 xx_cby_xx 0.0
 cellBasisVector3 0.0 0.0 xx_cbz_xx
 cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 }
-# wrapWater           on
+wrapWater           on
 wrapAll             on
 
 
@@ -78,11 +78,11 @@ langevinPistonTemp    $temperature
 # Output
 binaryoutput        no
 outputName          $outputname
-restartfreq         100      ;# 500steps = every 1ps
-dcdfreq             100
-xstFreq             100
-outputEnergies      100
-outputPressure      100
+restartfreq         500      ;# 500steps = every 1ps
+dcdfreq             500
+xstFreq             500
+outputEnergies      500
+outputPressure      500
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
