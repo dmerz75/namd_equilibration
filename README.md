@@ -101,15 +101,21 @@ Note: Necessary adjustments to load_rotate_origin_cminmax.tcl include identifyin
 alpha-carbon residue positions that are to be aligned on the z-axis and the shift from the
 origin you may desire.
 
-        vmd -dispdev text -e load_rotate_origin_cminmax.tcl
+* Identify the first and last residues, edit load_rotate_origin_cminmax.tcl*
 
-*View source, [load_rotate_origin_cminmax.tcl](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/load_rotate_origin_cminmax.tcl).*
+* View source, [load_rotate_origin_cminmax.tcl](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/load_rotate_origin_cminmax.tcl).*
+
+        vmd -dispdev text -e load_rotate_origin_cminmax.tcl
 
 You should have the following ready for equilibration
 
         mkdir ../equilibrate
 
         cp 00_start.p* hold* par_all27_prot_lipid.prm center_minmax_00_start.dat ../equilibrate
+        
+        mkdir config && move *.namd config/
+
+        mv config/01_min.namd .
 
 ## Minimization & Equilibration
 Minimization and equilibration will remove internal potential energy and
@@ -129,6 +135,8 @@ Copy over the .namd configuration files.
         cp ../../../100.config_templates/explicit/* .
         
 Next, complete all 5 stages of minimization/equilibration.
+
+        mv *.namd && mv config/01_min.namd .
 
         ./write_cell_basis.py
 
