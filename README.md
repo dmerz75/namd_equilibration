@@ -130,10 +130,8 @@ Copy over the .namd configuration files.
 
         cp ../../../100.config_templates/explicit/* .        
 
-        mkdir config && move *.namd config/
+        mkdir config
 
-        mv config/01_min.namd .
-        
 Next, complete all 5 stages of minimization/equilibration.
 
         mv *.namd config/ && mv config/01_min.namd .
