@@ -136,7 +136,7 @@ Copy over the .namd configuration files.
         
 Next, complete all 5 stages of minimization/equilibration.
 
-        mv *.namd && mv config/01_min.namd .
+        mv *.namd config/ && mv config/01_min.namd .
 
         ./write_cell_basis.py
 
