@@ -112,10 +112,8 @@ You should have the following ready for equilibration
         mkdir ../equilibrate
 
         cp 00_start.p* hold* par_all27_prot_lipid.prm center_minmax_00_start.dat ../equilibrate
-        
-        mkdir config && move *.namd config/
 
-        mv config/01_min.namd .
+        cd ../equilibrate
 
 ## Minimization & Equilibration
 Minimization and equilibration will remove internal potential energy and
@@ -129,10 +127,12 @@ using NAMD in the NVT and NPT ensembles.
 * See the supporting materials, page 3. Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
 
 Copy over the .namd configuration files.
-        
-        cd ../equilibrate
 
-        cp ../../../100.config_templates/explicit/* .
+        cp ../../../100.config_templates/explicit/* .        
+
+        mkdir config && move *.namd config/
+
+        mv config/01_min.namd .
         
 Next, complete all 5 stages of minimization/equilibration.
 
