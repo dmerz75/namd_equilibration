@@ -78,9 +78,9 @@ langevinPistonTemp    $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             100
-outputEnergies      100
-outputPressure      100
+dcdfreq             1000
+outputEnergies      500
+outputPressure      500
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
@@ -100,4 +100,3 @@ constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 ## EXECUTION SCRIPT                                        ##
 #############################################################
 minimize            16000      ;# Voth: Conjugate Gradient, 16000
-
