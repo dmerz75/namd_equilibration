@@ -160,12 +160,15 @@ Repeat, for all 7 stages. To continue with stage 8:
 	
 	(optional): cp 07_prod.vel 07_prod.coor 07_prod.psf ~/namd_equilibration
 
-	# have 08_prod_continue.namd ready
+	# have 08_prod_continue.namd ready, keep 08_prod_01.namd around to
+    # proceed to 08_prod_02.namd
 
 	./write_cell_basis.py    # to write 08_prod_01.namd
 
 	./write_8.py             # to substitute variables from 08_prod_01.namd
 
 	vi 08_prod_01.namd       # ... adjust the PME Gridsize ...
+
+    namd2 +p2 08_prod_01.namd > 08_prod_01.log
 
 Submit. Repeat for step 08_prod_02.

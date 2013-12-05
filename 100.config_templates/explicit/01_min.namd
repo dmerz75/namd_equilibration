@@ -9,16 +9,16 @@
 
 structure          00_start.psf
 coordinates        00_start.pdb 
-set outputname     01_min
-
-firsttimestep      0
+outputname         01_min
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
 #############################################################
+
 # Input
+seed                905872112
 paraTypeCharmm	    on
-parameters          par_all27_prot_lipid.prm 
+parameters          par_all27_prot_lipid.prm
 set temperature     310
 temperature         $temperature
 
@@ -47,12 +47,12 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1 xx_cbx_xx 0.0 0.0
-cellBasisVector2 0.0 xx_cby_xx 0.0
-cellBasisVector3 0.0 0.0 xx_cbz_xx
-cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
+cellBasisVector1 50.7 0.0 0.0
+cellBasisVector2 0.0 39.32 0.0
+cellBasisVector3 0.0 0.0 49.95 
+cellOrigin       0.92 -0.2 3.8
 }
-# wrapWater           on
+wrapWater           on
 wrapAll             on
 
 # PME (for full-system periodic electrostatics)
@@ -60,9 +60,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         20  ;# Use multiples of 2,3,5
-PMEGridSizeY         20  ;# 
-PMEGridSizeZ         20  ;# Change these !!!
+PMEGridSizeX         51  ;# Use multiples of 2,3,5
+PMEGridSizeY         40  ;# 
+PMEGridSizeZ         50  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -78,12 +78,9 @@ langevinPistonTemp    $temperature
 
 # Output
 binaryoutput        no
-outputName          $outputname
-restartfreq         500     ;# 500steps = every 1ps
-dcdfreq             500
-xstFreq             500
-outputEnergies      500
-outputPressure      500
+dcdfreq             100
+outputEnergies      100
+outputPressure      100
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
@@ -104,4 +101,5 @@ constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
 #############################################################
 velocityQuenching   on
 maximumMove         0.75
-minimize            2000     ;# Voth: 2000
+# minimize            2000     ;# Voth: 2000
+minimize            500

@@ -6,17 +6,23 @@
 #############################################################
 ## ADJUSTABLE PARAMETERS                                   ##
 #############################################################
+
 structure          00_start.psf
 coordinates        xx_coor_xx
 outputName         08_prod_xx_stage_xx
+
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
 #############################################################
+
 # Input
 seed                xxxxx
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm 
 velocities          xx_vel_xx.vel
+
+# for LangevinTemp & LangevinPistonTemp
+set temperature     310
 
 # Force-Field Parameters
 exclude             scaled1-4
@@ -36,7 +42,7 @@ stepspercycle       10
 # Constant Temperature Control
 langevin            on     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        310    ;# $temperature
+langevinTemp        $temperature    ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
@@ -50,7 +56,6 @@ cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 }
 wrapWater           on
 wrapAll             on
-
 
 # PME (for full-system periodic electrostatics)
 if {1} {
@@ -71,16 +76,17 @@ langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
 langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
 langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
-langevinPistonTemp    310     ;# $temperature
+langevinPistonTemp    $temperature     ;# $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             5000
-outputEnergies      1000
-outputPressure      1000
+dcdfreq             100
+outputEnergies      100
+outputPressure      100
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
 
-run 2000000  ;# 100,000 = 200 ps
+# run 2000000  ;# 100,000 = 200 ps
+run 2000  ;# 100,000 = 200 ps

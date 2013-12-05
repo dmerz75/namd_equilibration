@@ -9,16 +9,16 @@
 
 structure          00_start.psf
 coordinates        01_min.coor
-set outputname     02_min
-
-firsttimestep      0
+outputname         02_min
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
 #############################################################
+
 # Input
+seed                455172
 paraTypeCharmm	    on
-parameters          par_all27_prot_lipid.prm 
+parameters          par_all27_prot_lipid.prm
 set temperature     310
 temperature         $temperature
 
@@ -47,12 +47,12 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1 xx_cbx_xx 0.0 0.0
-cellBasisVector2 0.0 xx_cby_xx 0.0
-cellBasisVector3 0.0 0.0 xx_cbz_xx
-cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
+cellBasisVector1 50.87 0.0 0.0
+cellBasisVector2 0.0 38.74 0.0
+cellBasisVector3 0.0 0.0 48.9
+cellOrigin       0.92 -0.2 3.8
 }
-# wrapWater           on
+wrapWater           on
 wrapAll             on
 
 # PME (for full-system periodic electrostatics)
@@ -60,9 +60,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         20  ;# Use multiples of 2,3,5
-PMEGridSizeY         20  ;# 
-PMEGridSizeZ         20  ;# Change these !!!
+PMEGridSizeX         51  ;# Use multiples of 2,3,5
+PMEGridSizeY         40  ;# 
+PMEGridSizeZ         49  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -78,12 +78,9 @@ langevinPistonTemp    $temperature
 
 # Output
 binaryoutput        no
-outputName          $outputname
-restartfreq         1000      ;# 500steps = every 1ps
-dcdfreq             1000
-xstFreq             1000
-outputEnergies      1000
-outputPressure      1000
+dcdfreq             100
+outputEnergies      100
+outputPressure      100
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
@@ -102,4 +99,6 @@ constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
-minimize            16000      ;# Voth: Conjugate Gradient, 16000
+# minimize            16000      ;# Voth: Conjugate Gradient, 16000
+minimize            500      ;# Voth: Conjugate Gradient, 16000
+

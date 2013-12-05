@@ -9,15 +9,17 @@
 
 structure          00_start.psf
 coordinates        05_nvt.coor
-set temperature    310
-set outputname     06_npt
+outputname         06_npt
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
 #############################################################
+
 # Input
+seed                923411223
 paraTypeCharmm	    on
-parameters          par_all27_prot_lipid.prm 
+parameters          par_all27_prot_lipid.prm
+set temperature     310
 temperature         $temperature
 
 # Force-Field Parameters
@@ -38,31 +40,29 @@ stepspercycle       10
 # Constant Temperature Control
 langevin            on     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        310    ;# $temperature
+langevinTemp        $temperature    ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
-
 
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1 xx_cbx_xx 0.0 0.0
-cellBasisVector2 0.0 xx_cby_xx 0.0
-cellBasisVector3 0.0 0.0 xx_cbz_xx
-cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
+cellBasisVector1 48.27 0.0 0.0
+cellBasisVector2 0.0 40.04 0.0
+cellBasisVector3 0.0 0.0 44.92
+cellOrigin       1.21 -0.03 3.85
 }
 wrapWater           on
 wrapAll             on
-
 
 # PME (for full-system periodic electrostatics)
 if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         20  ;# Use multiples of 2,3,5
-PMEGridSizeY         20  ;# 
-PMEGridSizeZ         20  ;# Change these !!!
+PMEGridSizeX         49  ;# Use multiples of 2,3,5
+PMEGridSizeY         41  ;# 
+PMEGridSizeZ         45  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -74,16 +74,13 @@ langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
 langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
 langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
-langevinPistonTemp    310     ;# $temperature
+langevinPistonTemp    $temperature ;# $temperature
 
 # Output
 binaryoutput        no
-outputName          $outputname
-restartfreq         1000      ;# 500steps = every 1ps
-dcdfreq             1000
-xstFreq             1000
-outputEnergies      1000
-outputPressure      1000
+dcdfreq             100
+outputEnergies      100
+outputPressure      100
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
@@ -105,4 +102,5 @@ constraintScaling 3.0      ;# ( 3 kcal / mol / A^2)
 ## EXECUTION SCRIPT                                        ##
 #############################################################
 
-run 100000  ;# 100,000 = 200 ps
+# run 100000  ;# 100,000 = 200 ps
+run 500  ;# 100,000 = 200 ps
