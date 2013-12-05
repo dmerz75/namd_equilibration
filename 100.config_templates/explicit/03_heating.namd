@@ -16,7 +16,7 @@ outputname         03_heating
 #############################################################
 
 # Input
-seed                9102313
+seed                xxxxx
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm
 set temperature     310
@@ -47,10 +47,10 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1 49.75 0.0 0.0
-cellBasisVector2 0.0 38.01 0.0
-cellBasisVector3 0.0 0.0 48.79
-cellOrigin       0.92 -0.2 3.8
+cellBasisVector1 xx_cbx_xx 0.0 0.0
+cellBasisVector2 0.0 xx_cby_xx 0.0
+cellBasisVector3 0.0 0.0 xx_cbz_xx
+cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 }
 wrapWater           on
 wrapAll             on
@@ -60,9 +60,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         50  ;# Use multiples of 2,3,5
-PMEGridSizeY         39  ;# 
-PMEGridSizeZ         49  ;# Change these !!!
+PMEGridSizeX         20  ;# Use multiples of 2,3,5
+PMEGridSizeY         20  ;# 
+PMEGridSizeZ         20  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -109,5 +109,4 @@ for {set i 10} {$i <= $temperature} {incr i 6} {
     run $freq
 }
 
-# run 5000   ;# 5000 = 10 ps
-run 100   ;# 5000 = 10 ps
+run 5000   ;# 5000 = 10 ps

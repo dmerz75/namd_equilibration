@@ -16,7 +16,7 @@ outputName         07_prod
 #############################################################
 
 # Input
-seed                8724213
+seed                xxxxx
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm 
 set temperature     310
@@ -47,10 +47,10 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1 48.61 0.0 0.0
-cellBasisVector2 0.0 40.44 0.0
-cellBasisVector3 0.0 0.0 45.55
-cellOrigin       1.32 0.13 3.92
+cellBasisVector1 xx_cbx_xx 0.0 0.0
+cellBasisVector2 0.0 xx_cby_xx 0.0
+cellBasisVector3 0.0 0.0 xx_cbz_xx
+cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 }
 wrapWater           on
 wrapAll             on
@@ -60,9 +60,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         49  ;# Use multiples of 2,3,5
-PMEGridSizeY         41  ;# 
-PMEGridSizeZ         46  ;# Change these !!!
+PMEGridSizeX         20  ;# Use multiples of 2,3,5
+PMEGridSizeY         20  ;# 
+PMEGridSizeZ         20  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -86,5 +86,4 @@ outputPressure      100
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
 
-# run 2000000  ;# 100,000 = 200 ps
-run 2000  ;# 100,000 = 200 ps
+run 2000000  ;# 100,000 = 200 ps

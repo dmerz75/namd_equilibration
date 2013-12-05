@@ -16,7 +16,7 @@ outputname         04_nvt
 #############################################################
 
 # Input
-seed                1232358
+seed                xxxxx
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm 
 set temperature     310
@@ -47,10 +47,10 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1} { 
-cellBasisVector1 47.53 0.0 0.0
-cellBasisVector2 0.0 38.51 0.0
-cellBasisVector3 0.0 0.0 47.1
-cellOrigin       1.05 -0.03 3.69
+cellBasisVector1 xx_cbx_xx 0.0 0.0
+cellBasisVector2 0.0 xx_cby_xx 0.0
+cellBasisVector3 0.0 0.0 xx_cbz_xx
+cellOrigin       xx_xx_xx xx_yy_xx xx_zz_xx
 }
 wrapWater           on
 wrapAll             on
@@ -60,9 +60,9 @@ if {1} {
 PME                  yes
 PMEGridSpacing       1.0
 # manual grid definition
-PMEGridSizeX         48  ;# Use multiples of 2,3,5
-PMEGridSizeY         39  ;# 
-PMEGridSizeZ         48  ;# Change these !!!
+PMEGridSizeX         20  ;# Use multiples of 2,3,5
+PMEGridSizeY         20  ;# 
+PMEGridSizeZ         20  ;# Change these !!!
 }
 
 # Constant Pressure Control (variable volume)
@@ -102,8 +102,7 @@ conskcol     B
 
 for {set i 1} {$i <= 3} {incr i 1} {
     set ck [expr {10**[expr {3-$i}]}]
-    # set ts [expr {[expr {$i + 1}] * 5000}]  ;# 5000: 2->20ps
-    set ts [expr {[expr {$i + 1}] * 100}]  ;# 5000: 2->20ps
+    set ts [expr {[expr {$i + 1}] * 5000}]  ;# 5000: 2->20ps
     constraintScaling $ck                   ;# 500 : 2->2ps
     run $ts
 }
