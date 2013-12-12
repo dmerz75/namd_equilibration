@@ -100,7 +100,7 @@ constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 ## EXECUTION SCRIPT                                        ##
 #############################################################
 
-set freq 100
+set freq 500
 for {set i 10} {$i <= $temperature} {incr i 6} {
     #temperature $i
     langevinTemp $i
@@ -109,4 +109,4 @@ for {set i 10} {$i <= $temperature} {incr i 6} {
     run $freq
 }
 
-run 5000   ;# 5000 = 10 ps
+run 25000   ;# 5000 = 10 ps
