@@ -8,8 +8,8 @@
 #############################################################
 
 structure          00_start.psf
-coordinates        03_heating.coor
-outputname         04_nvt
+coordinates        06_nvt.coor
+outputname         07_npt
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -18,7 +18,7 @@ outputname         04_nvt
 # Input
 seed                xxxxx
 paraTypeCharmm	    on
-parameters          par_all27_prot_lipid.prm 
+parameters          par_all27_prot_lipid.prm
 set temperature     310
 temperature         $temperature
 
@@ -38,9 +38,9 @@ fullElectFrequency  2
 stepspercycle       10
 
 # Constant Temperature Control
-langevin            off     ;# do langevin dynamics         # VERIFIED?
+langevin            on     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        $temperature ;# $temperature
+langevinTemp        $temperature    ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
@@ -72,15 +72,15 @@ useConstantArea       no
 
 langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
-langevinPistonPeriod  2000.0  ;# [100.0] | (fs) typically 200 fs, Voth: 2 ps
-langevinPistonDecay   2000.0  ;# [50.0 ] | (fs) damping, typ 100 fs, Voth: 2 ps
-langevinPistonTemp    $temperature
+langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
+langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
+langevinPistonTemp    $temperature ;# $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             1000
-outputEnergies      500
-outputPressure      500
+dcdfreq             5000
+outputEnergies      1000
+outputPressure      1000
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
@@ -91,18 +91,16 @@ fixedAtoms          on
 fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
 fixedAtomsCol       B
 }
+if {0} {
 constraints  on
 consref      hold_ca.ref
 conskfile    hold_ca.ref
 conskcol     B
-# constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
+constraintScaling 3.0      ;# ( 3 kcal / mol / A^2)
+}
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
 
-for {set i 1} {$i <= 3} {incr i 1} {
-    set ck [expr {10**[expr {3-$i}]}]
-    set ts [expr {[expr {$i + 1}] * 5000}]  ;# 5000: 2->20ps
-    constraintScaling $ck                   ;# 500 : 2->2ps
-    run $ts
-}
+# run 10000  ;# short
+run 100000  ;# 100,000 = 200 ps

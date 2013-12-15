@@ -8,8 +8,8 @@
 #############################################################
 
 structure          00_start.psf
-coordinates        05_nvt.coor
-outputname         06_npt
+coordinates        07_npt.coor
+outputName         08_prod
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -18,7 +18,7 @@ outputname         06_npt
 # Input
 seed                xxxxx
 paraTypeCharmm	    on
-parameters          par_all27_prot_lipid.prm
+parameters          par_all27_prot_lipid.prm 
 set temperature     310
 temperature         $temperature
 
@@ -74,32 +74,17 @@ langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
 langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
 langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
-langevinPistonTemp    $temperature ;# $temperature
+langevinPistonTemp    $temperature     ;# $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             5000
-outputEnergies      1000
-outputPressure      1000
+dcdfreq             10000
+outputEnergies      2000
+outputPressure      2000
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
-# Fixed Atoms Constraint (set PDB beta-column to 1)
-if {0} {
-fixedAtoms          on
-fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
-fixedAtomsCol       B
-}
-if {0} {
-constraints  on
-consref      hold_ca.ref
-conskfile    hold_ca.ref
-conskcol     B
-constraintScaling 3.0      ;# ( 3 kcal / mol / A^2)
-}
-#############################################################
-## EXECUTION SCRIPT                                        ##
-#############################################################
 
-run 100000  ;# 100,000 = 200 ps
+# run 20000    ;# short
+run 2000000  ;# 100,000 = 200 ps

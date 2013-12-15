@@ -19,7 +19,7 @@ outputname         03_heating
 seed                xxxxx
 paraTypeCharmm	    on
 parameters          par_all27_prot_lipid.prm
-set temperature     310
+set temperature     280             ;# Voth: 280
 temperature         $temperature
 
 # Force-Field Parameters
@@ -100,6 +100,7 @@ constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
 ## EXECUTION SCRIPT                                        ##
 #############################################################
 
+# set freq 100     ;# short
 set freq 500
 for {set i 10} {$i <= $temperature} {incr i 6} {
     #temperature $i
@@ -109,4 +110,4 @@ for {set i 10} {$i <= $temperature} {incr i 6} {
     run $freq
 }
 
-run 25000   ;# 5000 = 10 ps
+run 2000   ;# 5000 = 10 ps

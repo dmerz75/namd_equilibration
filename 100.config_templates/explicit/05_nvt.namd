@@ -8,7 +8,7 @@
 #############################################################
 
 structure          00_start.psf
-coordinates        04_nvt.coor
+coordinates        04_heating.coor
 outputname         05_nvt
 
 #############################################################
@@ -40,7 +40,7 @@ stepspercycle       10
 # Constant Temperature Control
 langevin            off     ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        $temperature    ;# $temperature
+langevinTemp        $temperature ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
@@ -79,8 +79,8 @@ langevinPistonTemp    $temperature
 # Output
 binaryoutput        no
 dcdfreq             1000
-outputEnergies      1000
-outputPressure      1000
+outputEnergies      500
+outputPressure      500
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
@@ -91,15 +91,19 @@ fixedAtoms          on
 fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
 fixedAtomsCol       B
 }
-if {0} {
 constraints  on
 consref      hold_ca.ref
 conskfile    hold_ca.ref
 conskcol     B
 # constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
-}
 #############################################################
 ## EXECUTION SCRIPT                                        ##
 #############################################################
 
-run 25000   ;# 5000 = 10 ps
+for {set i 1} {$i <= 3} {incr i 1} {
+    set ck [expr {10**[expr {3-$i}]}]
+    # set ts [expr {[expr {$i + 1}] * 500}]  ;# short
+    set ts [expr {[expr {$i + 1}] * 5000}]  ;# 5000: 2->20ps
+    constraintScaling $ck                   ;# 500 : 2->2ps
+    run $ts
+}

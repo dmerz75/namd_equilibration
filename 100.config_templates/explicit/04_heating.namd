@@ -8,8 +8,8 @@
 #############################################################
 
 structure          00_start.psf
-coordinates        06_npt.coor
-outputName         07_prod
+coordinates        03_heating.coor
+outputname         04_heating
 
 #############################################################
 ## SIMULATION PARAMETERS                                   ##
@@ -18,8 +18,8 @@ outputName         07_prod
 # Input
 seed                xxxxx
 paraTypeCharmm	    on
-parameters          par_all27_prot_lipid.prm 
-set temperature     310
+parameters          par_all27_prot_lipid.prm
+set temperature     310              ;# Voth: 310
 temperature         $temperature
 
 # Force-Field Parameters
@@ -38,9 +38,9 @@ fullElectFrequency  2
 stepspercycle       10
 
 # Constant Temperature Control
-langevin            on     ;# do langevin dynamics         # VERIFIED?
+langevin            off    ;# do langevin dynamics         # VERIFIED?
 langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
-langevinTemp        $temperature    ;# $temperature
+langevinTemp        $temperature ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
@@ -72,18 +72,42 @@ useConstantArea       no
 
 langevinPiston        on
 langevinPistonTarget  1.01325 ;# in bar -> 1 atm
-langevinPistonPeriod  2000.0  ;# (fs) typically 200 fs, Voth: 2 ps
-langevinPistonDecay   2000.0  ;# (fs) damping, typ 100 fs, Voth: 2 ps
-langevinPistonTemp    $temperature     ;# $temperature
+langevinPistonPeriod  2000.0  ;# [100.0] | (fs) typically 200 fs, Voth: 2 ps
+langevinPistonDecay   2000.0  ;# [50.0 ] | (fs) damping, typ 100 fs, Voth: 2 ps
+langevinPistonTemp    $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             10000
-outputEnergies      2000
-outputPressure      2000
+dcdfreq             100
+outputEnergies      100
+outputPressure      100
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
+# Fixed Atoms Constraint (set PDB beta-column to 1)
+if {0} {
+fixedAtoms          on
+fixedAtomsFile      hold_ca.ref   ;# hold.ref, hold_ca.ref
+fixedAtomsCol       B
+}
+constraints  on
+consref      hold_ca.ref
+conskfile    hold_ca.ref
+conskcol     B
+constraintScaling 100.0      ;# ( 100.0 kcal / mol / A^2)
+#############################################################
+## EXECUTION SCRIPT                                        ##
+#############################################################
 
-run 2000000  ;# 100,000 = 200 ps
+# set freq 100      ;# short
+set freq 500
+for {set i 270} {$i <= $temperature} {incr i 10} {
+    #temperature $i
+    langevinTemp $i
+    #langevinPistonTemp $i
+    reinitvels $i
+    run $freq
+}
+
+run 5000   ;# 5000 = 10 ps

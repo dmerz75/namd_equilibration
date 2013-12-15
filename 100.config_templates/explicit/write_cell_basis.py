@@ -23,7 +23,7 @@ for path in glob(os.path.join(my_dir,"[0-9][0-9]_*.namd")):
 # print dot_namd
 stage = max(completed.keys())
 next_stage = str(int(stage)+1).zfill(2)
-stage_08 = max(dot_namd.keys())
+stage_09 = max(dot_namd.keys())
 
 # print max(completed.keys())
 # print stage,next_stage
@@ -46,11 +46,11 @@ from cp import *
 from regex import *
 
 the_eight_list = {}
-for path in glob(os.path.join(my_dir,'08_*.namd')):
+for path in glob(os.path.join(my_dir,'09_*.namd')):
     # print path
-    type_8 = path.split('.')[0].split('_')[-1]
+    type_9 = path.split('.')[0].split('_')[-1]
     try:
-        the_eight_list[int(type_8)] = path
+        the_eight_list[int(type_9)] = path
     except:
         the_eight_list[00] = path
 
@@ -61,16 +61,16 @@ try:
 except:
     pass
 
-if stage_08 == '08':
+if stage_09 == '09':
     if max(the_eight_list.keys())=='continue':
-        cp_file(my_dir,'08_prod_continue.namd',my_dir,'08_prod_01.namd')
-        dot_namd[next_stage] = os.path.join(my_dir,'08_prod_01.namd')
+        cp_file(my_dir,'09_prod_continue.namd',my_dir,'09_prod_01.namd')
+        dot_namd[next_stage] = os.path.join(my_dir,'09_prod_01.namd')
     else:
-        next_8 = str(int(max(the_eight_list.keys())) + 1).zfill(2)
-        cp_file(my_dir,'08_prod_continue.namd',my_dir,'08_prod_%s.namd' \
-                % next_8)
-        dot_namd[next_stage] = os.path.join(my_dir,'08_prod_%s.namd' \
-                % next_8)
+        next_9 = str(int(max(the_eight_list.keys())) + 1).zfill(2)
+        cp_file(my_dir,'09_prod_continue.namd',my_dir,'09_prod_%s.namd' \
+                % next_9)
+        dot_namd[next_stage] = os.path.join(my_dir,'09_prod_%s.namd' \
+                % next_9)
 print "\nmodified:\n",dot_namd[next_stage]
 
 cbx = round(float(cellbasis.split(' ')[0]),2) + 0.37
