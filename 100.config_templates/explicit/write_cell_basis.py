@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os,sys,time
+import os,sys,time,random
 from glob import *
 
 my_dir = os.path.abspath(os.path.dirname(__file__))
@@ -86,3 +86,4 @@ reg_ex(my_dir,dot_namd[next_stage],'xx_cby_xx',str(cby))
 reg_ex(my_dir,dot_namd[next_stage],'xx_yy_xx',str(yy))
 reg_ex(my_dir,dot_namd[next_stage],'xx_cbz_xx',str(cbz))
 reg_ex(my_dir,dot_namd[next_stage],'xx_zz_xx',str(zz))
+reg_ex(my_dir,dot_namd[next_stage],'xxxxx',str(random.randint(100000,999999)))
