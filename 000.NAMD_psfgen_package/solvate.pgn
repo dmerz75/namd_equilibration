@@ -2,7 +2,7 @@
 
 proc solvation { molec } {
     package require solvate
-    solvate vac.psf vac.pdb -t 14 -o wbox
+    solvate vac.psf vac.pdb -x 21 -y 25 -z 11 +x 21 +y 25 +z 11 -o wbox
 }
 
 # ___solvation___

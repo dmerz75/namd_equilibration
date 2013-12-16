@@ -5,9 +5,9 @@ topology top_all27_prot_lipid.rtf
  
 # mol new 00.pdb
 
-# pdbalias residue HIS HSE
-# pdbalias residue HOH TIP3
-# pdbalias atom ILE CD1 CD
+pdbalias residue HIS HSE
+pdbalias residue HOH TIP3
+pdbalias atom ILE CD1 CD
 # pdbalias atom HOH O OH2
 
 # build protein segment
@@ -23,9 +23,52 @@ segment PTN {
 coordpdb noh.pdb PTN
 guesscoord
 
+
+proc orient_protein_on_z { molec start end } {
+    # protein
+    set all [atomselect $molec all]
+
+    set resid_CA_begin_coord [atomselect $molec "resid $start and name CA"]
+    set resid_CA_end_coord [atomselect $molec "resid $end and name CA"]
+
+
+    set pos_begin [measure center $resid_CA_begin_coord]
+    # set inv_pos_begin [vecinvert [measure center $resid_CA_begin_coord]]
+    set pos_end   [measure center $resid_CA_end_coord]
+
+    # get the protein vector; $end - $begin for vecsub
+    set protein_vector [vecsub $pos_end $pos_begin]
+    set prot_on_x [transvecinv $protein_vector]
+
+    # translate from x0,y0,z0 to {0.1 -0.5 0.08}
+    # set inv_protein_vector [vecinvert [vecsub $pos_end $pos_begin]]
+    # set inv_protein_vector [vecadd $inv_protein_vector {0.1 -0.05 0.08}]
+
+    # translate: (1) near origin (2) to x axis
+    # (1)
+    # $all moveby $inv_pos_begin
+    # (2)
+    $all move $prot_on_x
+    $all move [trans y -90]
+    set pos_begin [vecinvert [measure center $resid_CA_begin_coord]]
+    $all moveby $pos_begin
+    $all moveby {0.01 -0.05 0.08}
+    $all writepsf vac.psf
+    $all writepdb vac.pdb
+}
+
 # write psf & pdb
-writepdb vac.pdb
-writepsf vac.psf
+writepdb vac_malign.pdb
+writepsf vac_malign.psf
+
+# ___________________
+# orient_protein_on_z
+mol load psf vac_malign.psf pdb vac_malign.pdb
+set idn 0
+orient_protein_on_z $idn 4 385
+    # argv: molec first_residue second_residue
+    #  - check ionized.pdb
+    # hsp70 4,385
 
 # End of psfgen commands
 exit

@@ -78,7 +78,7 @@ langevinPistonTemp    $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             200
+dcdfreq             500
 outputEnergies      200
 outputPressure      200
 
@@ -101,4 +101,4 @@ constraintScaling 100.0      ;# ( 3 kcal / mol / A^2)
 #############################################################
 velocityQuenching   on
 maximumMove         0.75
-minimize            2000     ;# Voth: 2000
+minimize            3000     ;# Voth: 2000

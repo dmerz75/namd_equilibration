@@ -44,19 +44,18 @@ proc orient_protein_on_z { molec start end } {
     set pos_begin [vecinvert [measure center $resid_CA_begin_coord]]
     $all moveby $pos_begin
     $all moveby {0.01 -0.05 0.08}
-    $all writepsf 00_start.psf
-    $all writepdb 00_start.pdb
+    $all writepsf vac.psf
+    $all writepdb vac.pdb
 
     set ptn_ca [atomselect $molec "segname PTN and name CA"]
     $ptn_ca set beta 1
-    $all writepdb hold_ca.ref
+    # $all writepdb hold_ca.ref
     # $ptn_ca writepdb hold_ca.ref
 
     set ptn [atomselect $molec "segname PTN"]
     $ptn set beta 1
-    $all writepdb hold.ref
+    # $all writepdb hold.ref
     # $ptn writepdb hold.ref
-
 }
 
 proc draw_origin { molec x y z} {
@@ -99,7 +98,8 @@ proc solvation { molec } {
 proc get_center_minmax { molec } {
     # protein
     # mol load psf start.psf pdb start.pdb
-    mol load psf 00_start.psf pdb 00_start.pdb
+    # mol load psf 00_start.psf pdb 00_start.pdb
+    mol load psf vac.psf pdb vac.pdb
     set all [atomselect $molec all]
 
     set mm [measure minmax $all]
@@ -137,14 +137,13 @@ proc get_center_minmax { molec } {
     draw_origin $molec 12.0 12.0 25.0
 }
 
-
 # _________________________
 # Executed Commands Section
 
 # _______
 set idn 0
                     # CHANGE 1 (ID number from VMD Main)
-mol load psf ionized.psf pdb ionized.pdb
+mol load psf vac_malign.psf pdb vac_malign.pdb
 
 # ___________________
 # orient_protein_on_z
