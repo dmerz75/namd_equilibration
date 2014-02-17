@@ -79,6 +79,7 @@ langevinPistonTemp    $temperature     ;# $temperature
 # Output
 binaryoutput        no
 dcdfreq             10000
+xstFreq             10000
 outputEnergies      2000
 outputPressure      2000
 

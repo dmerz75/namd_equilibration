@@ -45,10 +45,17 @@ langevinDamping     0.5    ;# damping coefficient (gamma) of 5/ps
 langevinTemp        $temperature    ;# $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
+# STAGE 8 -- use xsc
+if [file exists xx_vel_xx.xsc] {
+extendedSystem	 xx_vel_xx.xsc
+} else {
+exit
+}
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
-if {1} { 
+# NOT USING in stage 8's
+if {0} { 
 cellBasisVector1 xx_cbx_xx 0.0 0.0
 cellBasisVector2 0.0 xx_cby_xx 0.0
 cellBasisVector3 0.0 0.0 xx_cbz_xx
@@ -81,6 +88,7 @@ langevinPistonTemp    $temperature     ;# $temperature
 # Output
 binaryoutput        no
 dcdfreq             10000
+xstFreq             10000
 outputEnergies      2000
 outputPressure      2000
 
