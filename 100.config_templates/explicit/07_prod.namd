@@ -78,13 +78,14 @@ langevinPistonTemp    $temperature     ;# $temperature
 
 # Output
 binaryoutput        no
-dcdfreq             10000
-xstFreq             10000
-outputEnergies      2000
-outputPressure      2000
+dcdfreq             50000
+xstFreq             50000
+outputEnergies      10000
+outputPressure      10000
 
 #############################################################
 ##  EXTRA PARAMETERS                                       ##
 #############################################################
 
-run 2000000  ;# 100,000 = 200 ps
+# run 2000000  ;# 100,000 = 200 ps
+run 12500000  ;# 100,000 = 200 ps
