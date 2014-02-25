@@ -90,7 +90,7 @@ Alternatives for solvate.pgn:
 Alternatives for ionize.pgn:
 * *See [alternate ionization options](www.ks.uiuc.edu/Research/vmd/plugins/autoionize).*
 
-*View source, [ionize.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/ionize.pgn).*
+* *View source, [ionize.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/ionize.pgn).*
 
 
 Next, use load_rotate_origin_cminmax.tcl to rotate your protein, place the alpha-carbon
@@ -101,9 +101,9 @@ Note: Necessary adjustments to load_rotate_origin_cminmax.tcl include identifyin
 alpha-carbon residue positions that are to be aligned on the z-axis and the shift from the
 origin you may desire.
 
-* Identify the first and last residues, edit load_rotate_origin_cminmax.tcl*
+* Identify the first and last residues, edit load_rotate_origin_cminmax.tcl
 
-* View source, [load_rotate_origin_cminmax.tcl](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/load_rotate_origin_cminmax.tcl).*
+* View source, [load_rotate_origin_cminmax.tcl](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/load_rotate_origin_cminmax.tcl).
 
         vmd -dispdev text -e load_rotate_origin_cminmax.tcl
 
@@ -154,7 +154,7 @@ repeat ... OR ... run the next 2 commands instead of the previous one.
 
 Repeat, for all 7 stages.
 
-* In the event of a simulation failure, follow NAMD's advice, i.e. increase margin, extend minimization, or try ./write_interim_coords.py. * write_interim_coords.py * employs [MDAnalysis](code.google.com/p/mdanalysis) to write out the final step in the trajectory to coordinates(pdb). Resubmit the same step of the simulation with the interim coordinates.
+* *In the event of a simulation failure, follow NAMD's advice, i.e. increase margin, extend minimization, or try ./__write_interim_coords.py__.  __write_interim_coords.py__ employs [MDAnalysis](code.google.com/p/mdanalysis) to write out the final step in the trajectory to coordinates(pdb). Resubmit the same step of the simulation with the interim coordinates.*
 
 
 To continue with stage 8:
