@@ -47,8 +47,8 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
 if {1}{
-if [file exists xx_vel_xx.xsc]{
-extendedSystem	 xx_vel_xx.xsc
+if [file exists 06_npt.xsc]{
+extendedSystem	 06_npt.xsc
 } else {
 exit   
  }

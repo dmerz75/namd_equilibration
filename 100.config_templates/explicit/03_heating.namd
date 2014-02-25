@@ -48,8 +48,8 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # specified an .xsc restart file!
 # USE XSC
 if {1}{
-if [file exists xx_vel_xx.xsc]{
-extendedSystem	 xx_vel_xx.xsc
+if [file exists 02_min.xsc]{
+extendedSystem	 02_min.xsc
 } else {
 exit   
  }
