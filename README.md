@@ -154,7 +154,7 @@ repeat ... OR ... run the next 2 commands instead of the previous one.
 
 Repeat, for all 7 stages.
 
-* *In the event of a simulation failure, follow NAMD's advice, i.e. increase margin, extend minimization, or try ./__write_interim_coords.py__.  __write_interim_coords.py__ employs [MDAnalysis](code.google.com/p/mdanalysis) to write out the final step in the trajectory to coordinates(pdb). Resubmit the same step of the simulation with the interim coordinates.*
+* *In the event of a simulation failure, follow NAMD's advice, i.e. increase margin, extend minimization, or try ./__write_interim_coords.py__.  __write_interim_coords.py__ employs [MDAnalysis](http://code.google.com/p/mdanalysis) to write out the final step in the trajectory to coordinates(pdb). Resubmit the same step of the simulation with the interim coordinates.*
 
 
 To continue with stage 8:
