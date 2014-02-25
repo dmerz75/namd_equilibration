@@ -152,7 +152,16 @@ repeat ... OR ... run the next 2 commands instead of the previous one.
 
         % source minmax_density.tcl
 
-Repeat, for all 7 stages. To continue with stage 8:
+Repeat, for all 7 stages.
+
+###### In the event of a simulation failure, follow NAMD's advice, i.e. increase margin, \
+###### extend minimization, or try ./write_interim_coords.py. * write_interim_coords.py * employs \
+###### [MDAnalysis](code.google.com/p/mdanalysis) to write out the final step in the trajectory to \
+###### pdb coordinates. Resubmit the same step of the simulation with the interim coordinates.
+
+
+To continue with stage 8:
+
 
         ./cp_psf.py
 

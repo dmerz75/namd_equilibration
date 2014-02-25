@@ -46,13 +46,13 @@ langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 # Periodic Boundary conditions
 # NOTE: Do not set the periodic cell basis if you have also 
 # specified an .xsc restart file!
-if {1}{
-if [file exists 03_heating.xsc]{
+# if {1}{
+# if [file exists 03_heating.xsc]{
 extendedSystem	 03_heating.xsc
-} else {
-exit   
- }
-}
+# } else {
+# exit   
+# }
+# }
 if {0} { 
 cellBasisVector1 xx_cbx_xx 0.0 0.0
 cellBasisVector2 0.0 xx_cby_xx 0.0
