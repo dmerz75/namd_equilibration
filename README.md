@@ -34,7 +34,7 @@ Now, we use noh.pgn to remove the hydrogens from your protein.
 
 *View source, [noh.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/noh.pgn).*
 
-Generate the psf (protein structure file) using psf.pgn.
+Generate the psf (protein structure file) using psf.pgn. First, insert the first and last resid's before calling the `orient_on_z $idn 397 603`:
 
         vmd -dispdev text -e psf.pgn > psf.log
 
