@@ -2,3 +2,7 @@
 namd_practice/*
 core*
 molecules_repo/*
+
+README.aux
+README.log
+markdown-to-pdf.py
