@@ -39,8 +39,8 @@ my_library = os.path.expanduser('~/.pylib')
 sys.path.append(my_library)
 
 # imports from my_library
-from cp import *
-from regex import *
+from mylib.cp import *
+from mylib.regex import *
 
 # the_eight_list = {}
 # for path in glob(os.path.join(my_dir,'08_*.namd')):
