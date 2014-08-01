@@ -10,4 +10,5 @@ mol new 00.pdb
 set noh1 [atomselect 0 noh]
 $noh1 set segname PTN
 $noh1 writepdb noh.pdb
+$noh1 writepsf noh.psf
 exit
