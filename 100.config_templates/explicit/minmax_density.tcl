@@ -36,7 +36,7 @@ proc get_center_minmax { molec } {
     puts $outfile "# Density:"
     puts $outfile "$density"
     close $outfile
-    
+
 }
 
 # _________________________

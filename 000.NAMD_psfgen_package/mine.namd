@@ -2,12 +2,12 @@
 ## JOB DESCRIPTION                                         ##
 #############################################################
 # Equilibration in Explicit Solvent
-# ~ 1 ns 
+# ~ 1 ns
 #############################################################
 ## ADJUSTABLE PARAMETERS                                   ##
 #############################################################
 structure          start.psf
-coordinates        start.pdb 
+coordinates        start.pdb
 set temperature    300
 set outputname     out_mine
 
@@ -17,8 +17,8 @@ firsttimestep      0
 ## SIMULATION PARAMETERS                                   ##
 #############################################################
 # Input
-paraTypeCharmm	    on
-parameters          par_all27_prot_lipid.prm 
+paraTypeCharmm      on
+parameters          par_all27_prot_lipid.prm
 temperature         $temperature
 
 # Force-Field Parameters
@@ -33,7 +33,7 @@ pairlistdist        14.0
 timestep            1.0  ;# 2fs/step
 rigidBonds          all  ;# needed for 2fs steps
 nonbondedFreq       1
-fullElectFrequency  2  
+fullElectFrequency  2
 stepspercycle       10
 
 # Constant Temperature Control
@@ -43,9 +43,9 @@ langevinTemp        $temperature
 langevinHydrogen    off    ;# don't couple langevin bath to hydrogens
 
 # Periodic Boundary conditions
-# NOTE: Do not set the periodic cell basis if you have also 
+# NOTE: Do not set the periodic cell basis if you have also
 # specified an .xsc restart file!
-if {1} { 
+if {1} {
 cellBasisVector1    24.0   0.0  0.0
 cellBasisVector2     0.0  20.0  0.0
 cellBasisVector3     0.0   0.0 54.0
@@ -98,4 +98,4 @@ fixedAtomsCol       B
 #############################################################
 minimize            1000
 reinitvels          $temperature
-run                 999000  ;# 1 ns 
+run                 999000  ;# 1 ns

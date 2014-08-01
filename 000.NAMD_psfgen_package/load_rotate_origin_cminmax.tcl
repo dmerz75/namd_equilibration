@@ -80,7 +80,7 @@ proc solvation { molec } {
     # package require psfgen
     # protein
     # source psf.pgn
-    
+
     mol load psf mol_nw.psf pdb mol_nw.pdb
     package require solvate
     solvate vac.psf vac.pdb -t 9 -o wbox
@@ -93,7 +93,7 @@ proc solvation { molec } {
     # set wb "wb_"
     # set fname "$wb$f_id"
     # solvate $
-    
+
 }
 
 proc get_center_minmax { molec } {
@@ -133,7 +133,7 @@ proc get_center_minmax { molec } {
     puts $outfile "# Density:"
     puts $outfile "$density"
     close $outfile
-    
+
     draw_origin $molec 12.0 12.0 25.0
 }
 
@@ -157,10 +157,10 @@ orient_protein_on_z $idn 4 385
 
 # ___________
 # draw_origin
-draw_origin $idn 12.0 12.0 25.0         
+draw_origin $idn 12.0 12.0 25.0
     # argv molec scaling
     # draw_origin $mol_id 5.0 5.0 15.0
-                    
+
                     # OPTIONAL CHANGE (by system size)
 
 # _________
@@ -168,7 +168,7 @@ draw_origin $idn 12.0 12.0 25.0
 # argv --
 # solvation 0
     # FIRST: use vmd -dispdev text -e noh.pgn
-    # JUST: use vmd -pdb 00.pdb -dispdev text -e psf.pgn 
+    # JUST: use vmd -pdb 00.pdb -dispdev text -e psf.pgn
 
 # _________________
 # get_center_minmax

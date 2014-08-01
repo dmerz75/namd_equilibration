@@ -70,5 +70,10 @@ orient_protein_on_z $idn 4 385
     #  - check ionized.pdb
     # hsp70 4,385
 
+# write coarse.psf
+set all [atomselect $idn noh]
+$all writepsf coarse.psf
+# writepsf noh.psf
+
 # End of psfgen commands
 exit
