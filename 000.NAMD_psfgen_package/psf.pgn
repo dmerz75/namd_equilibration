@@ -2,7 +2,7 @@ package require psfgen
 psfcontext new delete
 topology top_all27_prot_lipid.rtf
 # par_all27_prot_lipid.prm
- 
+
 # mol new 00.pdb
 
 pdbalias residue HIS HSE
@@ -10,20 +10,31 @@ pdbalias residue HOH TIP3
 pdbalias atom ILE CD1 CD
 # pdbalias atom HOH O OH2
 
-# build protein segment
-segment PTN {
-  pdb noh.pdb
-  # first ACE
-  first none
-  # last CT2
-  last none
-  # last CT3
+# build protein segment 1
+segment P1 {
+    pdb p1noh.pdb
+    # first ACE
+    first none
+    # last CT2
+    last none
+    # last CT3
 }
-
-coordpdb noh.pdb PTN
+coordpdb p1noh.pdb P1
 guesscoord
 
 
+# if 2 chains, uncomment this:
+# # build protein segment 2
+# segment P2 {
+#     pdb p2noh.pdb
+#     first none
+#     last none
+# }
+# coordpdb p2noh.pdb P2
+# guesscoord
+
+
+# alignment to Z-axis routine
 proc orient_protein_on_z { molec start end } {
     # protein
     set all [atomselect $molec all]
@@ -65,7 +76,8 @@ writepsf vac_malign.psf
 # orient_protein_on_z
 mol load psf vac_malign.psf pdb vac_malign.pdb
 set idn 0
-orient_protein_on_z $idn 4 385
+# orient_protein_on_z $idn 4 385
+orient_protein_on_z $idn 2 384
     # argv: molec first_residue second_residue
     #  - check ionized.pdb
     # hsp70 4,385
