@@ -1,0 +1,71 @@
+#!/usr/bin/tclsh
+
+package require psfgen
+psfcontext new delete
+# topology top_all27_prot_lipid.rtf
+# par_all27_prot_lipid.prm
+
+# load molecule
+mol new 00.pdb
+
+# identify chains
+
+# original:
+# set noh1 [atomselect 0 noh]
+# $noh1 set segname P1
+# $noh1 writepdb p1noh.pdb
+
+# designate chains (2 chains):
+# set p1 [atomselect 0 "protein and chain D and noh"]
+# set p2 [atomselect 0 "protein and chain H and noh"]
+
+
+# assign segnames to chains:
+# 1 chain
+$noh1 set segname P1
+# 2 chains
+# $p1 set segname P1
+# $p2 set segname P2
+
+
+# write pdb for chains:
+# 1 chain
+$p1 writepdb p1noh.pdb
+$p1 writepsf p1noh.psf
+# 2 chains
+# $p1 writepdb p1noh.pdb
+# $p2 writepsf p2noh.psf
+
+# exit
+exit
+
+proc consider_this {} {
+    # designate chains (2 chains):
+    # chain 1
+    set p1 [atomselect 0 "protein and chain D and noh"]
+    $p1 set segname sD
+    $p1 writepdb sD.pdb
+    $p1 writepsf sD.psf
+    delete 0
+
+    mol new 00.pdb
+    # chain 2
+    set p2 [atomselect 0 "protein and chain H and noh"]
+    $p2 set segname sH
+    $p1 writepdb sH.pdb
+    $p2 writepsf sH.psf
+
+    # exit
+    exit
+}
+
+proc or_try_this { } {
+    # manually write out the multiple chains per pdb, with declared segnames.
+    set chain1 [atomselect top "protein and chain D and noh"]
+    $chain1 num
+    $chain1 set segname P1
+    $chain1 writepdb dnoh.pdb
+    $chain1 writepsf dnoh.psf
+
+    # repeat P2
+}

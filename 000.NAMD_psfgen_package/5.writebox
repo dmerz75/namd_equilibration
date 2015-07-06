@@ -1,0 +1,4 @@
+mol load psf 00_start.psf pdb 00_start.pdb
+source ~/.pylib/vmd_tcl/macdermaid_misc.tcl
+writebox 00_start.xsc
+

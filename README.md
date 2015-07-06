@@ -42,7 +42,7 @@ Alternatives:
 * if Waters or residues Histidine or Isoleucine are in your protein coordinates, consider altering psf.pgn after the `topology top_all27_prot_lipid.rtf` and before `segment PTN {`:
 
         topology top_all27_prot_lipid.rtf
-        
+
         pdbalias residue HIS HSE
         pdbalias residue HOH TIP3
         pdbalias atom ILE CD1 CD
@@ -67,12 +67,12 @@ Alternatives:
 
 Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
 
-        vmd -dispdev text -e solvate.pgn > solvate.log 
+        vmd -dispdev text -e solvate.pgn > solvate.log
 
         vmd -psf wbox.psf -pdb wbox.pdb
-         
+
 `VMD Main` -> `Extensions` -> `Tk Console`:
-	
+
         % source ionize.pgn
 
 Alternatives for solvate.pgn:
@@ -107,6 +107,12 @@ origin you may desire.
 
         vmd -dispdev text -e load_rotate_origin_cminmax.tcl
 
+Additionally, write out the correct XSC file.
+
+        vmd -dispdev text -e 5.writebox
+
+
+
 You should have the following ready for equilibration
 
         mkdir ../equilibrate
@@ -119,7 +125,7 @@ You should have the following ready for equilibration
 Minimization and equilibration will remove internal potential energy and
 prepare your system for production simulations.
 
-### Voth Method Equilibration 
+### Voth Method Equilibration
 For equilibrating explicitly solvated systems.
 To preequilibrate and equilibrate explicitly solvated chemical systems
 using NAMD in the NVT and NPT ensembles.
@@ -128,7 +134,7 @@ using NAMD in the NVT and NPT ensembles.
 
 Copy over the .namd configuration files.
 
-        cp ../../../100.config_templates/explicit/* .        
+        cp ../../../100.config_templates/explicit/* .
 
         mkdir config
 
@@ -163,7 +169,7 @@ To continue with stage 8:
         ./cp_psf.py
 
         vmd -psf 01_min.psf -pdb 01_min.coor -dispdev text -e minmax_density.tcl
-	
+
 	(optional): cp 07_prod.vel 07_prod.coor 07_prod.psf ~/namd_equilibration
 
 	# have 08_prod_continue.namd ready, keep 08_prod_01.namd around to
