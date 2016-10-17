@@ -76,11 +76,15 @@ writepsf vac_malign.psf
 # orient_protein_on_z
 mol load psf vac_malign.psf pdb vac_malign.pdb
 set idn 0
+
+# EDIT HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # orient_protein_on_z $idn 4 385
-orient_protein_on_z $idn 2 384
+
+orient_protein_on_z $idn 397 507
     # argv: molec first_residue second_residue
     #  - check ionized.pdb
     # hsp70 4,385
+
 
 # write coarse.psf
 set all [atomselect $idn noh]

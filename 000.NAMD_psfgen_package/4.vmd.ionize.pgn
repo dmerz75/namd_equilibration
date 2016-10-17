@@ -3,7 +3,7 @@ psfcontext new delete
 topology top_all27_prot_lipid.rtf
 # par_all27_prot_lipid.prm
 
-set name wbox4
+set name wbox
 mol load psf $name.psf pdb $name.pdb
 package require solvate
 autoionize -psf $name.psf -pdb $name.pdb -neutralize

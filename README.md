@@ -4,7 +4,7 @@ Our test case is with amino acid residues 37-42 in protein 3bgm.
 ## Structure Preparations
 Find it on the protein data bank.
 Download PDB File (Text).
-Next, alter the coordinates and sequence as necessary.
+Next, alter the coordinate file and select the segments you want to simulate.
 Finally, proceed to psfgen section.
 
 ### PSFGEN: protein structure file generation
@@ -24,19 +24,32 @@ in an empty directory called prep. (namd_equilibration/molecules_repo/3bgm/prep)
 
         cd prep
 
-We need the tcl-based pgn scripts from 000.NAMD_psfgen_package directory.
+We need the pgn (tcl) scripts from 000.NAMD_psfgen_package directory.
 
         cp ../../../000.NAMD_psfgen_package/* .
 
-Now, we use noh.pgn to remove the hydrogens from your protein.
+Now, we use 1.noh.pgn to remove the hydrogens from your protein. You'll need to edit 1.noh.pgn to contain
+a valid molecule selection. (i.e. For a single chain molecule, try uncommenting the "set noh1 [atomselect 0 noh]" line)
 
-        vmd -dispdev text -e noh.pgn > noh.log
+        vmd -dispdev text -e 1.noh.pgn > noh.log
+
+Check noh.log to see if everything ran correctly. You should see something similar to the following:
+        Info) Finished with coordinate file 00.pdb.
+        Info) Opened coordinate file p1noh.pdb for writing.
+        Info) Finished with coordinate file p1noh.pdb.
+        psfplugin) WARNING: PSF file is incomplete, no angles, dihedrals,
+        psfplugin)          impropers, or cross-terms will be written.
+        Info) Opened coordinate file p1noh.psf for writing.
+        Info) Finished with coordinate file p1noh.psf.
+        Info) VMD for LINUXAMD64, version 1.9.2 (December 29, 2014)
+        Info) Exiting normally.
 
 *View source, [noh.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/noh.pgn).*
 
 Generate the psf (protein structure file) using psf.pgn. First, insert the first and last resid's before calling the `orient_on_z $idn 397 603`:
+Change the '397' and '603' to the first and last resids from p1noh.pdb, written in the last step.
 
-        vmd -dispdev text -e psf.pgn > psf.log
+        vmd -dispdev text -e 2.psf.pgn > psf.log
 
 Alternatives:
 * if Waters or residues Histidine or Isoleucine are in your protein coordinates, consider altering psf.pgn after the `topology top_all27_prot_lipid.rtf` and before `segment PTN {`:
@@ -63,17 +76,29 @@ Alternatives:
           last CT2
           }
 
+Check psf.log to see if everything ran correctly. You should see something similar to the following:
+        psfplugin) Writing angles/dihedrals/impropers...
+        Info) Opened coordinate file vac.psf for writing.
+        Info) Finished with coordinate file vac.psf.
+        Info) Opened coordinate file vac.pdb for writing.
+        Info) Finished with coordinate file vac.pdb.
+        Info) Exiting normally.
+
 *View source, [psf.pgn](https://github.com/dmerz75/namd_equilibration/blob/master/000.NAMD_psfgen_package/psf.pgn).*
 
 Solvate your protein and balance your charge using solvate.pgn and ionize.pgn.
 
-        vmd -dispdev text -e solvate.pgn > solvate.log
+        vmd -dispdev text -e 3.solvate.pgn > solvate.log
+
+Check that your molecule is adequately solvated from all sides:
 
         vmd -psf wbox.psf -pdb wbox.pdb
 
+If satisfied:
+
 `VMD Main` -> `Extensions` -> `Tk Console`:
 
-        % source ionize.pgn
+        % source 4.vmd.ionize.pgn
 
 Alternatives for solvate.pgn:
 * Proper solvation is needed here:

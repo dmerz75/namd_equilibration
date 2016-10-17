@@ -10,10 +10,10 @@ mol new 00.pdb
 
 # identify chains
 
-# original:
-# set noh1 [atomselect 0 noh]
-# $noh1 set segname P1
-# $noh1 writepdb p1noh.pdb
+# original (1 chain):
+set p1 [atomselect 0 noh]
+# $p1 set segname P1
+# $p1 writepdb p1noh.pdb
 
 # designate chains (2 chains):
 # set p1 [atomselect 0 "protein and chain D and noh"]
@@ -22,7 +22,7 @@ mol new 00.pdb
 
 # assign segnames to chains:
 # 1 chain
-$noh1 set segname P1
+$p1 set segname P1
 # 2 chains
 # $p1 set segname P1
 # $p2 set segname P2
