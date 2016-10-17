@@ -34,6 +34,7 @@ a valid molecule selection. (i.e. For a single chain molecule, try uncommenting 
         vmd -dispdev text -e 1.noh.pgn > noh.log
 
 Check noh.log to see if everything ran correctly. You should see something similar to the following:
+
         Info) Finished with coordinate file 00.pdb.
         Info) Opened coordinate file p1noh.pdb for writing.
         Info) Finished with coordinate file p1noh.pdb.
@@ -77,6 +78,7 @@ Alternatives:
           }
 
 Check psf.log to see if everything ran correctly. You should see something similar to the following:
+
         psfplugin) Writing angles/dihedrals/impropers...
         Info) Opened coordinate file vac.psf for writing.
         Info) Finished with coordinate file vac.psf.
