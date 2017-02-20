@@ -52,6 +52,8 @@ Change the '397' and '603' to the first and last resids from p1noh.pdb, written 
 
         vmd -dispdev text -e 2.psf.pgn > psf.log
 
+
+If this fails, try an alternative:
 Alternatives:
 * if Waters or residues Histidine or Isoleucine are in your protein coordinates, consider altering psf.pgn after the `topology top_all27_prot_lipid.rtf` and before `segment PTN {`:
 
@@ -76,6 +78,11 @@ Alternatives:
           # last none
           last CT2
           }
+
+* Recently, I encountered the MSE[http://www.ks.uiuc.edu/Research/namd/mailing_list/namd-l.2005-2006/1992.html] residue. Apply an alias and treat it as a methionine.
+
+        pdbalias residue MSE MET
+
 
 Check psf.log to see if everything ran correctly. You should see something similar to the following:
 
@@ -153,9 +160,7 @@ Minimization and equilibration will remove internal potential energy and
 prepare your system for production simulations.
 
 ### Voth Method Equilibration
-For equilibrating explicitly solvated systems.
-To preequilibrate and equilibrate explicitly solvated chemical systems
-using NAMD in the NVT and NPT ensembles.
+For equilibrating explicitly solvated systems using NAMD in the NVT and NPT ensembles:
 
 * See the supporting materials, page 3. Chu, J.-W. & Voth, G. A. Allostery of actin filaments: molecular dynamics simulations and coarse-grained analysis. Proc. Natl. Acad. Sci. U. S. A. 102, 13111–6 (2005).
 
@@ -165,7 +170,11 @@ Copy over the .namd configuration files.
 
         mkdir config
 
-Next, complete all 5 stages of minimization/equilibration. Use the previous stage's xsc file to restart the following stage's simulation.
+Next, complete all 5 stages of minimization/equilibration. Use the previous
+stage's xsc file to restart the following stage's simulation.
+Adjust the PME Gridsize, use numbers with low prime factors like 80 or 72,
+greater than the total size of the system (see the center_minmax.dat file,
+the cellbasis line).
 
         mv *.namd config/ && mv config/01_min.namd .
 
