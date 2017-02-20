@@ -79,7 +79,7 @@ Alternatives:
           last CT2
           }
 
-* Recently, I encountered the MSE[http://www.ks.uiuc.edu/Research/namd/mailing_list/namd-l.2005-2006/1992.html] residue. Apply an alias and treat it as a methionine.
+* Recently, I encountered the [MSE Residue](http://www.ks.uiuc.edu/Research/namd/mailing_list/namd-l.2005-2006/1992.html). Apply an alias and treat it as a methionine.
 
         pdbalias residue MSE MET
 
