@@ -8,32 +8,25 @@ psfcontext new delete
 # load molecule
 mol new 00.pdb
 
-# identify chains
-
-# original (1 chain):
-set p1 [atomselect 0 noh]
-# $p1 set segname P1
-# $p1 writepdb p1noh.pdb
-
-# designate chains (2 chains):
+# identify chains:
+set p1 [atomselect 0 "chain A and noh"]
 # set p1 [atomselect 0 "protein and chain D and noh"]
 # set p2 [atomselect 0 "protein and chain H and noh"]
 
-
 # assign segnames to chains:
-# 1 chain
+# 1 chain:
 $p1 set segname P1
-# 2 chains
+# 2 chains:
 # $p1 set segname P1
 # $p2 set segname P2
 
 
 # write pdb for chains:
-# 1 chain
+# 1 chain:
 $p1 writepdb p1noh.pdb
 $p1 writepsf p1noh.psf
-# 2 chains
-# $p1 writepdb p1noh.pdb
+# 2 chains:
+# $p2 writepdb p2noh.pdb
 # $p2 writepsf p2noh.psf
 
 # exit

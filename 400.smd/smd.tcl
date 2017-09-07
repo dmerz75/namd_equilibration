@@ -11,9 +11,11 @@ set grp2 {}
 lappend grp2 $id2
 set a2 [addgroup $grp2]
 
+
 # set the output frequency, initialize the time counter
 set Tclfreq 50
 set t 0
+
 
 # constraint points
 set c1x 20.0
@@ -24,12 +26,14 @@ set c2x 39.194
 set c2y 24.951
 set c2z 52.804
 
+
 # force constant (kcal/mol/A^2)
 set k 7.2
 
 # pulling velocity (A/timestep)
 set v 0.0000
 # set v 0.0002
+
 
 set outfilename da_smd_tcl.out
 open $outfilename w

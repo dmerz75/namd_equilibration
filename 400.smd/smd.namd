@@ -18,7 +18,6 @@ set temperature    300
 #############################################################
 # Input
 paraTypeCharmm      on
-# parameters          ../../toppar/par_all27_prot_lipid.prm
 parameters          ../../../000.toppar/par_all27_prot_lipid.prm
 temperature         $temperature
 
@@ -31,8 +30,8 @@ switchdist          10.0
 pairlistdist        13.5
 
 # Integrator Parameters
-timestep            1.0     ;# 2fs/step
-rigidBonds          all      ;# needed for 2fs steps
+timestep            1.0   ;# 2fs/step
+rigidBonds          all   ;# needed for 2fs steps
 nonbondedFreq       1
 fullElectFrequency  2
 stepspercycle       10
